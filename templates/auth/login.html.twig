@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}{% endblock %}
+{% block body %}
+    <div class="hero is-link is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <!-- Centrer les éléments -->
+                <div class="columns">
+                    <div class="column is-one-third"></div>
+                    <div class="column is-one-third">
+                        <!-- Titre -->
+                        <div class="title">
+                            <span>Connexion</span>
+                        </div>
+
+                        <!-- Formulaire de connexion -->
+                        <form class="box hero has-text-left">
+                            <!-- Champ Identifiant -->
+                            <div class="field">
+                                <label class="label">Identifiant</label>
+                                <div class="control">
+                                    <input class="input" type="email" placeholder="d.lucien">
+                                </div>
+                            </div>
+
+                            <!-- Champ Mot de passe -->
+                            <div class="field">
+                                <label class="label">Mot de passe</label>
+                                <div class="control">
+                                    <input class="input" type="password" placeholder="********">
+                                </div>
+                            </div>
+
+                            <!-- Champ Aucun Compte -->
+                            <div class="field">
+                                <div class="control">
+                                    <div id="create_account">
+                                        <a id="no_account" class="has-text-info">
+                                            <u>Je n'ai pas de compte</u>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Champ Bouton Connexion -->
+                            <button class="button is-link">
+                                <span class="icon">
+                                    <i class="fas fa-right-to-bracket"></i>
+                                </span>
+                                <span>Envoyer</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        const noAccount = document.getElementById('no_account');
+        const createAccount = document.getElementById('create_account');
+        noAccount.onclick = () => {
+            createAccount.innerHTML =
+                `<article class="message is-danger">
+                  <div class="message-body">
+                    Les inscriptions sont fermées. Pour vous créer un compte veuillez contacter un administrateur dans les plus brefs délais !
+                  </div>
+                </article>`;
+        };
+    </script>
+
+{% endblock %}
