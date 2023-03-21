@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}{% endblock %}
+{% block title %} Compétition {% endblock %}
+{% block body %}
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Tableau des compétitions</h1>
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <thead>
+                <tr>
+                    <th>Epreuve</th>
+                    <th>Adresse</th>
+                    <th>Niveau</th>
+                    <th>Nombre de compétiteurs</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for competition in competitions %}
+                    <tr>
+                        <td>{{ competition.epreuve }}</td>
+                        <td>{{ competition.adresse }}</td>
+                        <td>{{ competition.niveau }}</td>
+                        <td>{{ competition.nombre_competiteurs }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
