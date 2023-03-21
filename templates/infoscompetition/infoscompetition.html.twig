@@ -11,10 +11,9 @@
             <thead>
                 <tr>
                     <th>Nom de la compétition</th>
+                    <th>Ville</th>
                     <th>Adresse</th>
                     <th>Code postal</th>
-                    <th>Ville</th>
-                    <th>Niveau</th>
                     <th>Nombre de compétiteurs</th>
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
@@ -28,7 +27,6 @@
                         <td>{{ competition.adresse }}</td>
                         <td>{{ competition.code_postal }}</td>
                         <td>{{ competition.ville }}</td>
-                        <td>{{ competition.niveau }}</td>
                         <td>{{ competition.nombre_competiteurs }}</td>
                         <td>{{ competition.debut|date('d/m/Y') }}</td>
                         <td>{{ competition.fin|date('d/m/Y') }}</td>
