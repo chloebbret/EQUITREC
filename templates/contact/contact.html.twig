@@ -4,49 +4,56 @@
 {% block title %} Contact {% endblock %}
 {% block body %}
 
-    <h1> Contact </h1>
-    <div class="columns">
-        <div class="column is-one-third"></div>
-        <div class="column is-one-third">
-    <div class="field">
-        <label class="label">Nom</label>
-        <div class="control">
-            <input class="input" type="text" placeholder="Nom" required="required">
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <h1 class="title">Contact</h1>
+                    <form action="traitement.php" method="post">
+                        <div class="field">
+                            <label class="label" for="nom">Nom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="nom" id="nom" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="prenom">Prénom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="prenom" id="prenom" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="email">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" id="email" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="adresse">Adresse</label>
+                            <div class="control">
+                                <input class="input" type="text" name="adresse" id="adresse" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="message">Message</label>
+                            <div class="control">
+                                <textarea class="textarea" name="message" id="message" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-link" type="submit">Valider</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="field">
-        <label class="label">Prénom</label>
-        <div class="control">
-            <input class="input" type="text" placeholder="Prénom" required="required">
-        </div>
-    </div>
-    </span>
-
-    <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-            <input class="input" type="email" placeholder="Email">
-    </span>
-        </div>
-    </div>
-
-
-    <div class="field">
-        <label class="label">Message</label>
-        <div class="control">
-            <textarea class="textarea" placeholder="Textarea"></textarea>
-        </div>
-    </div>
-
-
-    <div class="field is-grouped">
-        <div class="control">
-            <button class="button is-link">Valider</button>
-        </div>
-    </div>
-    </div>
-    </div>
-
+    </section>
 
 {% endblock %}
