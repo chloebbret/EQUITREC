@@ -3,19 +3,30 @@
 {% block menu %}{% endblock %}
 {% block title %} Contact {% endblock %}
 {% block body %}
-
+{# Formulaire de contact #}
     <section class="section">
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-half">
                     <h1 class="title">Contact</h1>
-                    <form action="traitement.php" method="post">
+                    <form method="post" class="formContact">
+
+                        <form method="post" class="formContact">
+                            <div class="field">
+                                <label class="label" for="sujet">Sujet</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="sujet" id="sujet" required>
+                                </div>
+                            </div>
+
                         <div class="field">
                             <label class="label" for="nom">Nom</label>
                             <div class="control">
                                 <input class="input" type="text" name="nom" id="nom" required>
                             </div>
                         </div>
+
+
 
                         <div class="field">
                             <label class="label" for="prenom">Prénom</label>
@@ -54,11 +65,17 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+
+    {% block javascripts %}
+
+
+    {% endblock %}
+    
 
 {% endblock %}
