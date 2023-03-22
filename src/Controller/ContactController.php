@@ -14,6 +14,7 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function contact(Request $request, MailerInterface $mailer): Response
     {
+        $mail = 'k.vongkingkeo@lyon.ort.asso.fr';
         $nom = $request->request->get('nom');
         $prenom = $request->request->get('prenom');
         $email = $request->request->get('email');
@@ -21,7 +22,7 @@ class ContactController extends AbstractController
         $message = $request->request->get('message');
         $sujet = $request->request->get('sujet');
 
-        $body = $sujet;
+        $body = "$sujet\n";
         $body .= "Nom : $nom\n";
         $body .= "Prénom : $prenom\n";
         $body .= "Email : $email\n";
@@ -29,13 +30,13 @@ class ContactController extends AbstractController
         $body .= "Message :\n$message";
 
         // Envoi de l'e-mail
-        $email = (new Email())
-            ->from('k.vongkingkeo@lyon.ort.asso.fr')
-            ->to($email)
-            ->subject("Nouveau message")
+        $mail = (new Email())
+            ->from($mail)
+            ->to($mail)
+            ->subject($sujet)
             ->text($body);
 
-        $mailer->send($email);
+        $mailer->send($mail);
 
         return $this->render('contact/contact.html.twig', [
             'controller_name' => 'ContactController',
