@@ -38,10 +38,11 @@ class CompetitionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-        public function findAllWithoutId()
+        public function assoJuges()
     {
         $qb = $this->createQueryBuilder('c')
-            ->select('c.nom_competition, c.adr_competition, c.cp_competition, c.ville_competition, c.debut_competition, c.fin_competition, c.nb_epreuves');
+            ->select('c', 'j.nom_juge', 'j.prenom_juge')
+            ->leftJoin('c.juges', 'j');
 
         return $qb->getQuery()->getResult();
     }

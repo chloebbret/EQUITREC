@@ -11,11 +11,12 @@
             <thead>
                 <tr>
                     <th>Nom de la compétition</th>
-                    <th>Ville</th>
                     <th>Adresse</th>
                     <th>Code postal</th>
+                    <th>Ville</th>
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
+                    <th>Nombre d'épreuves</th>
 
                 </tr>
             </thead>
@@ -30,6 +31,7 @@
                         <td>{{ competition.ville_competition }}</td>
                         <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
                         <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
+                        <td>{{ competition.nb_epreuves }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -45,6 +47,7 @@
         {% endif %}
 
 
+    </div>
     </div>
 </section>
 

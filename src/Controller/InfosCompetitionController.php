@@ -14,7 +14,7 @@ class InfosCompetitionController extends AbstractController
     #[Route('/infos/competition', name: 'app_infos_competition')]
     public function index(CompetitionRepository $repo): Response
     {
-        $competitions = $repo->findAllWithoutId();
+        $competitions = $repo->assoJuges();
 
         return $this->render('infoscompetition/infoscompetition.html.twig', [
             'competitions' => $competitions,
