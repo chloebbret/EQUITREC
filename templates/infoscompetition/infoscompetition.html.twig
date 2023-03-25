@@ -17,13 +17,12 @@
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
                     <th>Nombre d'épreuves</th>
+                    <th> Juges </th>
 
                 </tr>
             </thead>
             <tbody>
-
-
-                {% for competition in competitions %}
+                    {% for competition in competitions %}
                     <tr>
                         <td>{{ competition.nom_competition }}</td>
                         <td>{{ competition.adr_competition }}</td>
@@ -32,8 +31,11 @@
                         <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
                         <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
                         <td>{{ competition.nb_epreuves }}</td>
+                        <td> {{ competition.nom_juge }} {{ competition.prenom_juge }}</td>
+
                     </tr>
-                {% endfor %}
+
+            {% endfor %}
             </tbody>
         </table>
         {% else %}

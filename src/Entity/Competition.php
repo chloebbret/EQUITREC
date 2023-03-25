@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CompetitionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: CompetitionRepository::class)]
 class Competition
 {
@@ -25,14 +26,17 @@ class Competition
     #[ORM\Column(length: 50)]
     private ?string $ville_competition = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $debut_competition = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $fin_competition = null;
 
     #[ORM\Column]
     private ?int $nb_epreuves = null;
+
+    #[ORM\ManyToOne(inversedBy: 'competition')]
+    private ?Juges $juges = null;
 
     public function getId(): ?int
     {
@@ -131,6 +135,18 @@ class Competition
     public function setNbEpreuves(int $nb_epreuves): self
     {
         $this->nb_epreuves = $nb_epreuves;
+
+        return $this;
+    }
+
+    public function getJuges(): ?Juges
+    {
+        return $this->juges;
+    }
+
+    public function setJuges(?Juges $juges): self
+    {
+        $this->juges = $juges;
 
         return $this;
     }
