@@ -1,33 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block menu %}{% endblock %}
 {% block title %} Compétition {% endblock %}
 {% block body %}
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Tableau des compétitions</h1>
-            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-                <thead>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Tableau des compétitions</h1>
+        {% if competitions| length > 0 %}
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
                 <tr>
-                    <th>Epreuve</th>
+                    <th>Nom de la compétition</th>
                     <th>Adresse</th>
-                    <th>Niveau</th>
-                    <th>Nombre de compétiteurs</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for competition in competitions %}
-                    <tr>
-                        <td>{{ competition.epreuve }}</td>
-                        <td>{{ competition.adresse }}</td>
-                        <td>{{ competition.niveau }}</td>
-                        <td>{{ competition.nombre_competiteurs }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
+                    <th>Code postal</th>
+                    <th>Ville</th>
+                    <th>Début de la compétition</th>
+                    <th>Fin de la compétition</th>
+                    <th>Nombre d'épreuves</th>
+                    <th> Juges </th>
 
+                </tr>
+            </thead>
+            <tbody>
+                    {% for competition in competitions %}
+                    <tr>
+                        <td>{{ competition.nom_competition }}</td>
+                        <td>{{ competition.adr_competition }}</td>
+                        <td>{{ competition.cp_competition }}</td>
+                        <td>{{ competition.ville_competition }}</td>
+                        <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
+                        <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
+                        <td>{{ competition.nb_epreuves }}</td>
+                        <td> {{ competition.nom_juge }} {{ competition.prenom_juge }}</td>
+
+                    </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        {% else %}
+
+            <div class="content">
+                <div class="column">
+                    <div class="columns is-centered">
+                        <h3> Pas de compétition </h3>
+                    </div>
+                </div>
+        {% endif %}
+
+
+    </div>
+    </div>
+</section>
+
+
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        tr:nth-child(1) > th {
+            color: white;
+        }
+
+        table th, table td {
+            border: 1px solid black;
+            padding: 30px;
+        }
+
+        table th {
+            background-color: #485FC7;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
 {% endblock %}

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Juge;
+use App\Entity\Juges;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Juge>
+ * @extends ServiceEntityRepository<Juges>
  *
- * @method Juge|null find($id, $lockMode = null, $lockVersion = null)
- * @method Juge|null findOneBy(array $criteria, array $orderBy = null)
- * @method Juge[]    findAll()
- * @method Juge[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Juges|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Juges|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Juges[]    findAll()
+ * @method Juges[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class JugeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Juge::class);
+        parent::__construct($registry, Juges::class);
     }
 
-    public function save(Juge $entity, bool $flush = false): void
+    public function save(Juges $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class JugeRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Juge $entity, bool $flush = false): void
+    public function remove(Juges $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -39,8 +39,15 @@ class JugeRepository extends ServiceEntityRepository
         }
     }
 
+    public function NomPrenomJuge() {
+        $qb = $this->createQueryBuilder('j')
+            ->select('j.nom_juge, j.prenom_juge');
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
-//     * @return Juge[] Returns an array of Juge objects
+//     * @return Juges[] Returns an array of Juges objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +61,7 @@ class JugeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Juge
+//    public function findOneBySomeField($value): ?Juges
 //    {
 //        return $this->createQueryBuilder('j')
 //            ->andWhere('j.exampleField = :val')
