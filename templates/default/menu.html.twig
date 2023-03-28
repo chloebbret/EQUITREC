@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <nav class="navbar is-transparent">
     <div class="navbar-brand">
         <!-- Logo du menu -->
-        <a class="navbar-item" href="https://bulma.io">
+        <a class="navbar-item">
             <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
         </a>
 
@@ -13,7 +14,7 @@
         </div>
     </div>
 
-    <div id="menu" class="navbar-menu">
+    <div id="menu" class="navbar-menu" style="font-size: 17px">
         <!-- Partie située à gauche -->
         <div class="navbar-start">
             <a href="#" class="navbar-item">Accueil</a>
@@ -21,28 +22,28 @@
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link" href="#">Pages</a>
                 <!-- Les éléments présents dans le dropdown -->
-                <div class="navbar-dropdown is-boxed">
-                    <a href="#" class="navbar-item">Test 1</a>
-                    <a href="#" class="navbar-item">Test 2</a>
+                <div class="navbar-dropdown is-boxed" style="font-size: 15px">
+                    <a href="#" class="navbar-item">Planning</a>
+                    <a href="#" class="navbar-item">Notes</a>
                 </div>
-
             </div>
+            <a href="#" class="navbar-item">Contact</a>
         </div>
 
-        <!-- Partie située à droite -->
-        {% block isNotLogged %}
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary">
-                            <strong>Inscription</strong>
-                        </a>
-                        <a class="button is-light">
-                            Connexion
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endblock %}
+{#        <!-- Partie située à droite -->#}
+{#        {% block isNotLogged %}#}
+{#            <div class="navbar-end">#}
+{#                <div class="navbar-item">#}
+{#                    <div class="buttons">#}
+{#                        <a class="button is-primary">#}
+{#                            <strong>Inscription</strong>#}
+{#                        </a>#}
+{#                        <a class="button is-light">#}
+{#                            Connexion#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endblock %}#}
     </div>
 </nav>
