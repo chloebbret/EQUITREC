@@ -22,6 +22,11 @@ class Competiteur
     #[ORM\Column]
     private ?int $num_licence = null;
 
+    #[ORM\Column]
+    private ?float $notes_competiteur = null;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,5 +90,15 @@ class Competiteur
         $this->num_licence = $num_licence;
 
         return $this;
+    }
+
+    public function getNotesCompetiteur(): ?float
+    {
+        return $this->notes_competiteur;
+    }
+
+    public function setNotesCompetiteur(?float $notes_competiteur): void
+    {
+        $this->notes_competiteur = $notes_competiteur;
     }
 }
