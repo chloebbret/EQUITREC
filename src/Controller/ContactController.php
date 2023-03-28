@@ -18,7 +18,7 @@ class ContactController extends AbstractController
     {
         // Vérifie si la méthode de la requête est POST
         if ($request->isMethod('POST')) {
-            $mail = 'k.vongkingkeo@lyon.ort.asso.fr';
+            $mail = 'contactequitrecproject@gmail.com';
             $nom = $request->request->get('nom');
             $prenom = $request->request->get('prenom');
             $email = $request->request->get('email');
