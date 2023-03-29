@@ -14,6 +14,9 @@ class Competiteur
     private ?int $id_competiteur = null;
 
     #[ORM\Column(length: 50)]
+    private ?string $nom_competiteur = null;
+
+    #[ORM\Column(length: 50)]
     private ?string $prenom_competiteur = null;
 
     #[ORM\Column]

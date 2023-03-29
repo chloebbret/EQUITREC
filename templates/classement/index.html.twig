@@ -7,17 +7,22 @@
 <section class="section">
     <div class="container">
         <h1 class="title">Tableau de classement</h1>
-        <table>
+        <div class="select">
+            <select>
+                <option>Select dropdown</option>
+                <option>With options</option>
+            </select>
+        </div>
+        <table class="table is-fullwidth is-hoverable">
             <thead>
             <tr>
                 <th>Position</th>
-                <th>Nom</th>
-                <th>Prénom</th>
+                <th>Compétiteur</th>
                 <th>Score</th>
             </tr>
             </thead>
             <tbody>
-            {% for key, competiteur %}
+            {% for key, competiteur in competiteurs %}
                 <tr>
                     <td>{{ key + 1 }}</td>
                     <td>{{ competiteur.nom_competiteur }} {{ competiteur.prenom_competiteur }}</td>

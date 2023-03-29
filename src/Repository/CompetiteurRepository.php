@@ -39,6 +39,14 @@ class CompetiteurRepository extends ServiceEntityRepository
         }
     }
 
+    public function findCompetiteursRank() {
+        return $this->createQueryBuilder('c')
+            ->select('c.nom_competiteur, c.prenom_competiteur, c.notes_competiteur')
+            ->orderBy('c.notes_competiteur', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Competiteur[] Returns an array of Competiteur objects
 //     */

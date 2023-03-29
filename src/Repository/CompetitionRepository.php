@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Competiteur;
 use App\Entity\Competition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
