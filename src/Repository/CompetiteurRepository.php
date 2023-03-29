@@ -47,6 +47,23 @@ class CompetiteurRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function classementCompet($competitionId = null) {
+        $qb = $this->createQueryBuilder('ct');
+
+        $qb->select('c.nom_competition', 'ct.nom_competiteur', 'ct.prenom_competiteur', 'ct.notes_competiteur')
+            ->join('App\Entity\Competition', 'c', 'WITH', 'c.id_competition = ct.id_competition')
+            ->orderBy('c.nom_competition', 'ASC')
+            ->addOrderBy('ct.notes_competiteur', 'DESC');
+
+        if ($competitionId !== null) {
+            $qb->andWhere('c.id = :id_competition')
+                ->setParameter('id_competition', $competitionId);
+        }
+
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Competiteur[] Returns an array of Competiteur objects
 //     */

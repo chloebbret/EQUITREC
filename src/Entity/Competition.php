@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompetitionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -37,6 +39,14 @@ class Competition
 
     #[ORM\ManyToOne(inversedBy: 'competition')]
     private ?Juges $juges = null;
+
+    #[ORM\OneToMany(mappedBy: 'competition', targetEntity: Competiteur::class)]
+    private Collection $competiteurs;
+
+    public function __construct()
+    {
+        $this->competiteurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +157,36 @@ class Competition
     public function setJuges(?Juges $juges): self
     {
         $this->juges = $juges;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competiteur>
+     */
+    public function getCompetiteurs(): Collection
+    {
+        return $this->competiteurs;
+    }
+
+    public function addCompetiteur(Competiteur $competiteur): self
+    {
+        if (!$this->competiteurs->contains($competiteur)) {
+            $this->competiteurs->add($competiteur);
+            $competiteur->setCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetiteur(Competiteur $competiteur): self
+    {
+        if ($this->competiteurs->removeElement($competiteur)) {
+            // set the owning side to null (unless already changed)
+            if ($competiteur->getCompetition() === $this) {
+                $competiteur->setCompetition(null);
+            }
+        }
 
         return $this;
     }

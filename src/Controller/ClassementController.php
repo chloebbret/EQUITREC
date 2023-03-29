@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Competiteur;
 use App\Repository\CompetiteurRepository;
+use App\Repository\CompetitionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 class ClassementController extends AbstractController
 
 {
@@ -18,15 +20,18 @@ class ClassementController extends AbstractController
         $this->entityManager = $entityManager;
     }
     #[Route('/classement', name: 'app_classement')]
-    public function index(CompetiteurRepository $competiteurRepository): Response
+    public function index(CompetiteurRepository $competiteurRepository, CompetitionRepository $repoCompet, Request $request): Response
     {
-
-        $competiteurs = $competiteurRepository -> findCompetiteursRank();
+        $competitionId = $request->query->get('id_competition');
+        $competiteurs = $competiteurRepository -> classementCompet();
+        $competitions = $repoCompet -> findNom();
 
 
         return $this->render('classement/index.html.twig', [
             'controller_name' => 'ClassementController',
-            'competiteurs' => $competiteurs
+            'competiteurs' => $competiteurs,
+            'competitions' => $competitions,
+            'competitionId' => $competitionId
         ]);
     }
 

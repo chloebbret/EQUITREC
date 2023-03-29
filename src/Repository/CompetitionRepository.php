@@ -59,6 +59,15 @@ class CompetitionRepository extends ServiceEntityRepository
         return $qb->getResult();
     }
 
+    public function findNom() {
+        return $this->createQueryBuilder('c')
+            ->select('c.nom_competition')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
 
 //    /**
 //     * @return Competition[] Returns an array of Competition objects
