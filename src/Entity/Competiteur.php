@@ -40,13 +40,9 @@ class Competiteur
 
     public function getId(): ?int
     {
-        return $this->id;
-    }
-
-    public function getIdCompetiteur(): ?int
-    {
         return $this->id_competiteur;
     }
+
 
     public function setIdCompetiteur(int $id_competiteur): self
     {

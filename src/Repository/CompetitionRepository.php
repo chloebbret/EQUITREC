@@ -61,7 +61,7 @@ class CompetitionRepository extends ServiceEntityRepository
 
     public function findNom() {
         return $this->createQueryBuilder('c')
-            ->select('c.nom_competition')
+            ->select('c.id_competition, c.nom_competition')
             ->getQuery()
             ->getResult();
     }

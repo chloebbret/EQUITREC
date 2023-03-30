@@ -13,7 +13,7 @@ class Competition
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: "integer", name: "id_competition")]
     private ?int $id_competition = null;
 
     #[ORM\Column(length: 20)]
@@ -50,13 +50,10 @@ class Competition
 
     public function getId(): ?int
     {
-        return $this->id;
-    }
-
-    public function getIdCompet(): ?int
-    {
         return $this->id_competition;
     }
+
+
 
     public function setIdCompet(int $id_competition): self
     {
