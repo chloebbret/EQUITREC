@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Competiteur;
 use App\Entity\Competition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -57,6 +58,15 @@ class CompetitionRepository extends ServiceEntityRepository
 
         return $qb->getResult();
     }
+
+    public function findNom() {
+        return $this->createQueryBuilder('c')
+            ->select('c.nom_competition')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 
 //    /**

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classement {% endblock %}
+
+{% block body %}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Tableau de classement </h1>
+        <div class="select">
+
+            <select>
+                {% for competition in competitions %}
+                <option> {{ competition.nom_competition }} </option>
+                {% endfor %}
+            </select>
+
+        </div>
+        <table class="table is-fullwidth is-hoverable">
+            <thead>
+            <tr>
+                <th>Position</th>
+                <th>Compétiteur</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if competiteurs %}
+            {% for key, competiteur in competiteurs %}
+                <tr>
+                    <td>{{ key + 1 }}</td>
+                    <td>{{ competiteur.nom_competiteur }} {{ competiteur.prenom_competiteur }}</td>
+                    <td>{{ competiteur.notes_competiteur }}</td>
+                </tr>
+            {% endfor %}
+
+            {% else %}
+                <h1> Pas de classement établi </h1>
+            {% endif %}
+
+
+            </tbody>
+        </table>
+
+    </div>
+</section>
+{% endblock %}
