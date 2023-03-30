@@ -11,7 +11,7 @@
 
             <select id="competition-select">
                 {% for competition in competitions %}
-                    <option value="{{ competition.id_competition }}">{{ competition.nom_competition }}</option>
+                    <option value="{{ competition.id_competition }}" {% if competition.id_competition == 1 %}selected="selected"{% endif %}> {{ competition.nom_competition }}</option>
                 {% endfor %}
             </select>
 

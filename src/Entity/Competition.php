@@ -41,6 +41,7 @@ class Competition
     private ?Juges $juges = null;
 
     #[ORM\OneToMany(mappedBy: 'competition', targetEntity: Competiteur::class)]
+    #[ORM\JoinColumn(name: 'id_competition', referencedColumnName: 'id_competition')]
     private Collection $competiteurs;
 
     public function __construct()
@@ -55,7 +56,7 @@ class Competition
 
 
 
-    public function setIdCompet(int $id_competition): self
+    public function setId(int $id_competition): self
     {
         $this->id_competition = $id_competition;
 
