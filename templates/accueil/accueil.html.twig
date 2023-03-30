@@ -1,53 +1,65 @@
-{#{% extends 'base.html.twig' %}#}
-
-{% block menu %}{% endblock %}
-{% block title %} Accueil {% endblock %}
-{% extends 'default/menu.html.twig' %}
-{% block body %}
-
-{#    <h1> Accueil </h1>#}
-{#    <div class="columns">#}
-{#        <div class="column is-one-third"></div>#}
-{#        <div class="column is-one-third">#}
-{#            <div class="field">#}
-{#                <label class="label">Nom</label>#}
-{#                <div class="control">#}
-{#                    <input class="input" type="text" placeholder="Nom" required="required">#}
-{#                </div>#}
-{#            </div>#}
-
-{#            <div class="field">#}
-{#                <label class="label">Prénom</label>#}
-{#                <div class="control">#}
-{#                    <input class="input" type="text" placeholder="Prénom" required="required">#}
-{#                </div>#}
-{#            </div>#}
-{#            </span>#}
-
-{#            <div class="field">#}
-{#                <label class="label">Email</label>#}
-{#                <div class="control">#}
-{#                    <input class="input" type="email" placeholder="Email">#}
-{#                    </span>#}
-{#                </div>#}
-{#            </div>#}
+{% extends 'base.html.twig' %}
+{#{% block title %} Accueil {% endblock %}#}
+{#{% block formulaire %}#}
 
 
-{#            <div class="field">#}
-{#                <label class="label">Message</label>#}
-{#                <div class="control">#}
-{#                    <textarea class="textarea" placeholder="Textarea"></textarea>#}
-{#                </div>#}
-{#            </div>#}
+{#    <h2>coucou</h2>#}
+{#    <canvas id="myChart"></canvas>#}
 
 
-{#            <div class="field is-grouped">#}
-{#                <div class="control">#}
-{#                    <button class="button is-link">Valider</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+{#<script>#}
+{#        const DATA_COUNT = 7;#}
+{#        const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};#}
 
+{#        const labels = Chart.Utils.months({count: 7});#}
+{#        const data = {#}
+{#        labels: labels,#}
+{#        datasets: [#}
+{#    {#}
+{#        label: 'Nb user daily',#}
+{#        data: Chart.Utils.numbers(NUMBER_CFG),#}
+{#        borderColor: Chart.Utils.CHART_COLORS.red,#}
+{#        backgroundColor: Chart.Utils.transparentize(Chart.Utils.CHART_COLORS.red, 0.5),#}
+{#        borderWidth: 2,#}
+{#        borderRadius: Number.MAX_VALUE,#}
+{#        borderSkipped: false,#}
+{#    },#}
+{#    {#}
+{#        label: 'Nb user now',#}
+{#        data: Chart.Utils.numbers(NUMBER_CFG),#}
+{#        borderColor: Chart.Utils.CHART_COLORS.blue,#}
+{#        backgroundColor: Chart.Utils.transparentize(Chart.Utils.CHART_COLORS.blue, 0.5),#}
+{#        borderWidth: 2,#}
+{#        borderRadius: 5,#}
+{#        borderSkipped: false,#}
+{#    }#}
+{#        ]#}
+{#    };#}
 
-{% endblock %}
+{#        const config = {#}
+{#        type: 'bar',#}
+{#        data: data,#}
+{#        options: {#}
+{#        responsive: true,#}
+{#        plugins: {#}
+{#        legend: {#}
+{#        position: 'top',#}
+{#    },#}
+{#        title: {#}
+{#        display: true,#}
+{#        text: 'Chart.js Bar Chart'#}
+{#    }#}
+{#    }#}
+{#    },#}
+{#    };#}
+
+{#        var myChart = new Chart(#}
+{#        document.getElementById('myChart'),#}
+{#        config#}
+{#        );#}
+{#</script>#}
+{#{% endblock %}#}
+
+{#{% block javascripts %}#}
+{#  #}
+{#{% endblock %}#}
