@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+
 
 class ClassementController extends AbstractController
 
@@ -25,7 +25,7 @@ class ClassementController extends AbstractController
         $competiteurs = $competiteurRepository->classementCompet();
         $competitions = $repoCompet->findNom();
 
-        return $this->render('classement/index.html.twig', [
+        return $this->render('classement/classement.html.twig', [
             'controller_name' => 'ClassementController',
             'competiteurs' => $competiteurs,
             'competitions' => $competitions,
