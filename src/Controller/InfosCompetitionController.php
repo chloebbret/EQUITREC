@@ -16,7 +16,7 @@ class InfosCompetitionController extends AbstractController
     public function Competitions(CompetitionRepository $repoCompet, JugeRepository $repoJuge): Response
     {
 
-        $competitions = $repoCompet -> findAllWithJuges();
+        $competitions = $repoCompet -> findAll();
 
         return $this->render('infoscompetition/infoscompetition.html.twig', [
             'competitions' => $competitions

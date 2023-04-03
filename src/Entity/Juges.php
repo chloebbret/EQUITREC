@@ -33,7 +33,7 @@ class Juges
     #[ORM\Column(length: 15)]
     private ?string $pass_juge = null;
 
-    #[ORM\OneToMany(mappedBy: 'juges', targetEntity: Competition::class)]
+    #[ORM\OneToMany(targetEntity: Competition::class, mappedBy: "juges")]
     private Collection $competition;
 
     public function __construct()

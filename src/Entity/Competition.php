@@ -37,8 +37,9 @@ class Competition
     #[ORM\Column]
     private ?int $nb_epreuves = null;
 
-    #[ORM\ManyToOne(inversedBy: 'competition')]
-    private ?Juges $juges = null;
+//    #[ORM\ManyToOne(targetEntity: Juges::class, inversedBy: "competition")]
+//    #[ORM\JoinColumn(name: "id_juge", referencedColumnName: "id_juge", nullable: false)]
+//    private $juges;
 
     #[ORM\OneToMany(mappedBy: 'competition', targetEntity: Competiteur::class)]
     #[ORM\JoinColumn(name: 'id_competition', referencedColumnName: 'id_competition')]
