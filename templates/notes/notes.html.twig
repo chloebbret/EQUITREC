@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        table th, table td {
+            border: 1px solid black;
+            padding: 30px;
+        }
+
+        table th {
+            background-color: #485FC7;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container has-text-centered">
+        <h1 class="title is-2 has-text-weight-bold" style="color: #485FC7;">Liste des compétiteurs</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Niveau</th>
+            <th>Numéro de licence</th>
+            <th>Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for competiteur in competiteurs %}
+            <tr>
+                <td>{{ competiteur.nom_competiteur }}</td>
+                <td>{{ competiteur.prenom_competiteur }}</td>
+                <td>{{ competiteur.niveau_compet }}</td>
+                <td>{{ competiteur.num_licence }}</td>
+                <td>{{ competiteur.notes_competiteur }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

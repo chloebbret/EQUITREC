@@ -134,4 +134,16 @@ class Competition
 
         return $this;
     }
+    public function getJuges(): ?Juges
+    {
+        return $this->juges;
+    }
+
+    public function setJuges(?Juges $juges): self
+    {
+        $this->juges = $juges;
+
+        return $this;
+    }
+
 }

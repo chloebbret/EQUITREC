@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        table th, table td {
+            border: 1px solid black;
+            padding: 30px;
+        }
+
+        table th {
+            background-color: #485FC7;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <div class="container has-text-centered">
+            <h1 class="title is-2 has-text-weight-bold" style="color: #485FC7;">Planning des compétitions</h1>
+            {#vérifie si la variable competitions n'est pas vide#}
+            {% if competitions is not empty %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nom de la compétition</th>
+                        <th>Début de la compétition</th>
+                        <th>Fin de la compétition</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for competition in competitions %}
+                        <tr>
+                            <td>{{ competition.nom_competition }}</td>
+                            <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
+                            <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="notification is-info">
+                    {# Message afficher si la variable competitions est vide #}
+                    <p>Pas de compétition planifiée pour le moment.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
