@@ -61,6 +61,16 @@ class CompetitionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function moyenneCompetition()
+    {
+        $qb = $this->createQueryBuilder('competition')
+            ->select('competition.nom_competition, AVG(competiteur.notes_competiteur) as average_notes')
+            ->innerJoin('competition.competiteurs', 'competiteur')
+            ->groupBy('competition.nom_competition')
+            ->orderBy('competition.id_competition', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
+
 
 
 
