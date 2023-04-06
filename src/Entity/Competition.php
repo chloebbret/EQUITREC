@@ -23,7 +23,7 @@ class Competition
     private ?string $adr_competition = null;
 
     #[ORM\Column]
-    private ?int $cp_competition = null;
+    private ?string $cp_competition = null;
 
     #[ORM\Column(length: 50)]
     private ?string $ville_competition = null;
@@ -88,12 +88,12 @@ class Competition
         return $this;
     }
 
-    public function getCpCompet(): ?int
+    public function getCpCompet(): ?string
     {
         return $this->cp_competition;
     }
 
-    public function setCpCompet(int $cp_competition): self
+    public function setCpCompet(string $cp_competition): self
     {
         $this->cp_competition = $cp_competition;
 

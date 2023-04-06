@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CompetiteurRepository;
 use App\Repository\CompetitionRepository;
+use App\Repository\LogJugesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,6 @@ class AccueilController extends AbstractController
     #[Route('/accueil', name: 'app_accueil')]
     public function accueil(): Response
     {
-
         return $this->render('accueil/accueil.html.twig', [
             'controller_name' => 'AccueilController',
         ]);
@@ -28,4 +28,13 @@ class AccueilController extends AbstractController
 
     }
 
+    #[Route('/api/connexionJournee', name: 'connexionJournee', methods: ['GET'])]
+    public function getConnectedUsers(LogJugesRepository $logRepo): JsonResponse
+    {
+        $connectedUsers = $logRepo->connexionJournee();
+
+        return $this->json($connectedUsers);
+    }
 }
+
+
