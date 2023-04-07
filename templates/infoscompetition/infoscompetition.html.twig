@@ -6,7 +6,76 @@
 <section class="section">
     <div class="container">
         <h1 class="title">Tableau des compétitions</h1>
-        <button class="button is-link is-outlined">  <span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter une compétition</button>
+        <button class="button is-link is-outlined ajoutCompet" onclick="ajoutCompet()"> <span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter une compétition</button>
+        <!-- Ajout de la popup -->
+        <div id="popupForm" class="modal">
+            <div class="modal-background" onclick="closeForm()"></div>
+            <div class="modal-content">
+                <!-- Le contenu du formulaire pour ajouter une compétition ici -->
+                <form class="box" method="post">
+                    <h2 class="title">Ajouter une compétition</h2>
+                    <div class="field">
+                        <label class="label">Nom de la compétition</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nomCompet" placeholder="Nom de la compétition">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Adresse</label>
+                        <div class="control">
+                            <input class="input" type="text" name="adresse" placeholder="Adresse">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Code postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="codePostal" placeholder="Code postal">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Ville</label>
+                        <div class="control">
+                            <input class="input" type="text" name="ville" placeholder="Ville">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Début de la compétition </label>
+                        <div class="control">
+                            <input class="input" type="date" name="debutCompet">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Fin de la compétition</label>
+                        <div class="control">
+                            <input class="input" type="date" name="finCompet">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre d'épreuves</label>
+                        <div class="control">
+                            <input class="input" type="Number" name="nbEpreuves" placeholder="Nombre d'épreuves">
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-success" type="submit">Ajouter</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-danger is-light" type="button" onclick="closeForm()">Annuler</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="modal-close is-large" aria-label="close" onclick="closeForm()"></button>
+        </div>
+        <!-- Fin de la popup -->
 
         {% if competitions| length > 0 %}
         <table class="table is-striped is-hoverable is-fullwidth">
@@ -91,5 +160,27 @@
         .fa-plus {
             margin-right: 17px;
         }
+
+        .modal {
+            display: none;
+        }
+
+        .modal.is-active {
+            display: flex;
+        }
+
     </style>
+
+    {% block javascripts %}
+        <script>
+            function ajoutCompet() {
+                document.getElementById("popupForm").classList.add("is-active");
+            }
+
+            function closeForm() {
+                document.getElementById("popupForm").classList.remove("is-active");
+            }
+        </script>
+        {% endblock %}
+
 {% endblock %}

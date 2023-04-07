@@ -6,6 +6,7 @@ use App\Repository\CompetitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 
 
 #[ORM\Entity(repositoryClass: CompetitionRepository::class)]
@@ -34,8 +35,8 @@ class Competition
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $fin_competition = null;
 
-    #[ORM\Column]
-    private ?int $nb_epreuves = null;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $nb_epreuves;
 
 //    #[ORM\ManyToOne(targetEntity: Juges::class, inversedBy: "competition")]
 //    #[ORM\JoinColumn(name: "id_juge", referencedColumnName: "id_juge", nullable: false)]
