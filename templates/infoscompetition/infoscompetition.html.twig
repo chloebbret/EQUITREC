@@ -6,6 +6,8 @@
 <section class="section">
     <div class="container">
         <h1 class="title">Tableau des compétitions</h1>
+        <button class="button is-link is-outlined">  <span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter une compétition</button>
+
         {% if competitions| length > 0 %}
         <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
@@ -79,6 +81,15 @@
 
         tr:hover {
             background-color: #e0e0e0;
+        }
+
+        button {
+            margin-bottom: 15px;
+            width: 220px;
+        }
+
+        .fa-plus {
+            margin-right: 17px;
         }
     </style>
 {% endblock %}

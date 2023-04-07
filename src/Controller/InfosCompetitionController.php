@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class InfosCompetitionController extends AbstractController
 {
-    #[Route('/infos/competition', name: 'app_infos_competition')]
+    #[Route('/competition', name: 'app_infos_competition')]
     public function Competitions(CompetitionRepository $repoCompet, JugeRepository $repoJuge): Response
     {
 
