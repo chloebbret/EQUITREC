@@ -36,8 +36,7 @@ class Juges
     #[ORM\OneToMany(targetEntity: Competition::class, mappedBy: "juges")]
     private Collection $competition;
 
-    #[ORM\OneToMany(targetEntity: LogJuges::class, mappedBy: "logJuges")]
-    private Collection $log;
+
 
 
     public function __construct()
@@ -143,14 +142,6 @@ class Juges
         return $this->competition;
     }
 
-
-    /**
-     * @return Collection|LogJuges[]
-     */
-    public function getLog(): Collection
-    {
-        return $this->log;
-    }
 
     public function addCompetition(Competition $competition): self
     {
