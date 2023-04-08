@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}{% endblock %}
+{% block title %} Contact {% endblock %}
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+        <div class="notification is-success" id="succes">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="notification is-danger" id="erreur">
+            {{ message }}
+        </div>
+    {% endfor %}
+{# Formulaire de contact #}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <h1 class="title">Contact</h1>
+                    <form method="post" id="form">
+
+                        <div class="field">
+                            <label class="label" for="sujet">Sujet</label>
+                            <div class="control">
+                                <input class="input" type="text" name="sujet" id="sujet" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="nom">Nom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="nom" id="nom" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="prenom">Prénom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="prenom" id="prenom" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="email">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" id="email" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="adresse">Adresse</label>
+                            <div class="control">
+                                <input class="input" type="text" name="adresse" id="adresse" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="message">Message</label>
+                            <div class="control">
+                                <textarea class="textarea" name="message" id="message" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="columns is-centered">
+                                <div class="column is-narrow">
+                                    <div class="control">
+                                        <button class="button is-link" type="submit">Valider</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {% block javascripts %}
+
+        <script>
+            const valid = document.getElementById('succes');
+            const echec = document.getElementById('erreur');
+            const form = document.getElementById('form');
+            setTimeout(function () {
+                valid.style.display = "none" ;
+            }, 2000);
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const elements = form.elements;
+                let allFieldsFilled = true;
+
+                for (let i = 0; i < elements.length; i++) {
+                    if (elements[i].type !== "submit" && elements[i].value.trim() === "") {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+
+                if (!allFieldsFilled) {
+                    echec.style.display = 'block';
+                    setTimeout(function () {
+                        echec.style.display = "none";
+                    }, 2000);
+                } else {
+                    form.submit();
+                }
+            });
+        </script>
+
+    {% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block menu %}{% endblock %}
+{% block title %} Compétition {% endblock %}
+{% block body %}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Tableau des compétitions</h1>
+        {% if competitions| length > 0 %}
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th>Nom de la compétition</th>
+                    <th>Adresse</th>
+                    <th>Code postal</th>
+                    <th>Ville</th>
+                    <th>Début de la compétition</th>
+                    <th>Fin de la compétition</th>
+                    <th>Nombre d'épreuves</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                {% for competition in competitions %}
+                    <tr>
+                        <td>{{ competition.nom_competition }}</td>
+                        <td>{{ competition.adr_competition }}</td>
+                        <td>{{ competition.cp_competition }}</td>
+                        <td>{{ competition.ville_competition }}</td>
+                        <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
+                        <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
+                        <td>{{ competition.nb_epreuves }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+
+            <div class="content">
+                <div class="column">
+                    <div class="columns is-centered">
+                        <h3> Pas de compétition </h3>
+                    </div>
+                </div>
+        {% endif %}
+
+
+    </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -38,6 +38,23 @@ class CompetitionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+        public function assoJuges()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c', 'j.nom_juge', 'j.prenom_juge')
+            ->leftJoin('c.juges', 'j');
+
+        return $qb->getQuery()->getResult();
+    }
+    public function findCompetitionDates()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.debut_competition', 'c.fin_competition','c.nom_competition')
+            ->orderBy('c.nom_competition', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Competition[] Returns an array of Competition objects

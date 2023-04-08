@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Competiteur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Competition;
 
 /**
  * @extends ServiceEntityRepository<Competiteur>
@@ -38,6 +39,13 @@ class CompetiteurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllCompetiteurs()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.nom_competiteur', 'c.prenom_competiteur', 'c.niveau_compet', 'c.num_licence', 'c.notes_competiteur');
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Competiteur[] Returns an array of Competiteur objects

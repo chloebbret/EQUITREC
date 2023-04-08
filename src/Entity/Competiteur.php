@@ -14,13 +14,19 @@ class Competiteur
     private ?int $id_competiteur = null;
 
     #[ORM\Column(length: 50)]
+    private ?string $nom_competiteur = null;
+
+    #[ORM\Column(length: 50)]
     private ?string $prenom_competiteur = null;
 
     #[ORM\Column]
-    private ?int $niveau_competiteur = null;
+    private ?int $niveau_compet = null;
 
     #[ORM\Column]
     private ?int $num_licence = null;
+
+    #[ORM\Column]
+    private ?float $notes_competiteur = null;
 
     public function getId(): ?int
     {
@@ -65,12 +71,12 @@ class Competiteur
 
     public function getNiveauCompetiteur(): ?int
     {
-        return $this->niveau_competiteur;
+        return $this->niveau_compet;
     }
 
-    public function setNiveauCompetiteur(int $niveau_competiteur): self
+    public function setNiveauCompetiteur(int $niveau_compet): self
     {
-        $this->niveau_competiteur = $niveau_competiteur;
+        $this->niveau_compet = $niveau_compet;
 
         return $this;
     }
@@ -83,6 +89,18 @@ class Competiteur
     public function setNumLicence(int $num_licence): self
     {
         $this->num_licence = $num_licence;
+
+        return $this;
+    }
+
+    public function getNotesCompetiteur(): ?float
+    {
+        return $this->notes_competiteur;
+    }
+
+    public function setNotesCompetiteur(float $notes_competiteur): self
+    {
+        $this->notes_competiteur = $notes_competiteur;
 
         return $this;
     }
