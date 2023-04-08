@@ -53,5 +53,16 @@ class InfosCompetitionController extends AbstractController
             'competitions' => $competitions
         ]);
     }
+    public function deleteCompetition(int $id, CompetitionRepository $repoCompet, EntityManagerInterface $em): RedirectResponse
+    {
+        $competition = $repoCompet->find($id);
+
+        if ($competition) {
+            $em->remove($competition);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('app_infos_competition');
+    }
 
 }

@@ -11,7 +11,7 @@
         <div id="popupForm" class="modal">
             <div class="modal-background" onclick="closeForm()"></div>
             <div class="modal-content">
-                <!-- Le contenu du formulaire pour ajouter une compétition ici -->
+                <!-- contenu du formulaire pour ajouter une compétition  -->
                 <form class="box" method="post">
                     <h2 class="title">Ajouter une compétition</h2>
                     <div class="field">
@@ -75,8 +75,24 @@
             </div>
             <button class="modal-close is-large" aria-label="close" onclick="closeForm()"></button>
         </div>
-        <!-- Fin de la popup -->
 
+
+        <button class="button is-link is-danger ajoutCompet" onclick="openForm()"> Supprimer une compétition</button>
+        <div id="popupForm" class="modal">
+            <div class="modal-background" onclick="closeForm()"></div>
+            <div class="modal-content">
+
+                <form class="box" method="post">
+
+
+                </form>
+            </div>
+        </div>
+
+
+
+        <!-- Fin de la popup -->
+{#      si on a des données, on affiche le tableau#}
         {% if competitions| length > 0 %}
         <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
@@ -110,7 +126,7 @@
 
         </table>
         {% else %}
-
+{#              sinon pas de tableau #}
             <div class="content">
                 <div class="column">
                     <div class="columns is-centered">
@@ -180,6 +196,7 @@
             function closeForm() {
                 document.getElementById("popupForm").classList.remove("is-active");
             }
+
         </script>
         {% endblock %}
 
