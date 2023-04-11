@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\CompetiteurRepository;
 use App\Repository\CompetitionRepository;
 use App\Repository\LogJugesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
