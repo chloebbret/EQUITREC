@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Connexion
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block body %}
+    <div id="backdrop" class="hero is-link is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <!-- Centrer les éléments -->
+                <div class="columns">
+                    <div class="column is-one-third">
+                    </div>
+                    <div class="column is-one-third">
+                        <!-- Titre -->
+                        <div class="title">
+                            <span>Connexion</span>
+                        </div>
+
+                        <!-- Formulaire de connexion -->
+                        <form class="box hero has-text-left" method="post" action="login">
+
+                            {% if success is defined %}
+                                {% if success == true %}
+                                    <article class="message is-success">
+                                        <div class="message-body">
+                                            Connexion réussie, redirection en cours ...
+                                        </div>
+                                    </article>
+                                {% else %}
+                                    <article class="message is-danger">
+                                        <div class="message-body">
+                                            Identifiant ou mot de passe incorrecte !
+                                        </div>
+                                    </article>
+                                {% endif %}
+                            {% endif %}
+
+                            <!-- Champ Identifiant -->
+                            <div class="field">
+                                <label class="label has-text-dark">Identifiant</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="login" placeholder="d.lucien">
+                                </div>
+                            </div>
+
+                            <!-- Champ Mot de passe -->
+                            <div class="field">
+                                <label class="label">Mot de passe</label>
+                                <div class="control">
+                                    <input class="input" type="password" name="password" placeholder="********">
+                                </div>
+                            </div>
+
+                            <!-- Champ Aucun Compte -->
+                            <div class="field">
+                                <div class="control">
+                                    <div id="create_account">
+                                        <a id="no_account" class="has-text-info">
+                                            <u>Je n'ai pas de compte</u>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Champ Bouton Connexion -->
+                            <button class="button is-link">
+                                <span class="icon">
+                                    <i class="fas fa-right-to-bracket"></i>
+                                </span>
+                                <span>Envoyer</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #backdrop {
+            background: rgb(64,134,235);
+            background: linear-gradient(101deg, rgba(64,134,235,0.5) 0%, rgba(0,66,112,0.7) 100%),
+            url("{{ asset('assets/img/bg.jpg') }}") center;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        const noAccount = document.getElementById('no_account');
+        const createAccount = document.getElementById('create_account');
+        noAccount.onclick = () => {
+            createAccount.innerHTML =
+                `<article class="message is-danger">
+                  <div class="message-body">
+                    Les inscriptions sont fermées. Pour vous créer un compte veuillez contacter un administrateur dans les plus brefs délais !
+                  </div>
+                </article>`;
+        };
+    </script>
+
+{% endblock %}

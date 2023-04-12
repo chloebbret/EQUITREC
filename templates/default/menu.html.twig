@@ -1,0 +1,48 @@
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <!-- Logo du menu -->
+        <a class="navbar-item" href="https://bulma.io">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
+        </a>
+
+        <!-- Burger du menu -->
+        <div class="navbar-burger" data-target="menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="menu" class="navbar-menu">
+        <!-- Partie située à gauche -->
+        <div class="navbar-start">
+            <a href="#" class="navbar-item">Accueil</a>
+            <!-- Un élément dit dropdown -->
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">Pages</a>
+                <!-- Les éléments présents dans le dropdown -->
+                <div class="navbar-dropdown is-boxed">
+                    <a href="#" class="navbar-item">Test 1</a>
+                    <a href="#" class="navbar-item">Test 2</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Partie située à droite -->
+        {% block isNotLogged %}
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary">
+                            <strong>Inscription</strong>
+                        </a>
+                        <a class="button is-light">
+                            Connexion
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</nav>
