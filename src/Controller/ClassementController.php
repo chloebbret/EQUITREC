@@ -20,20 +20,19 @@ class ClassementController extends AbstractController
         $this->entityManager = $entityManager;
     }
     #[Route('/classement', name: 'app_classement')]
-    public function index(CompetiteurRepository $competiteurRepository, CompetitionRepository $repoCompet, Request $request): Response
+    public function index(CompetiteurRepository $competiteurRepository, CompetitionRepository $repoCompet): Response
     {
-        $competitionId = $request->query->get('id_competition');
-        $competiteurs = $competiteurRepository -> classementCompet();
-        $competitions = $repoCompet -> findNom();
+        $competiteurs = $competiteurRepository->classementCompet();
+        $competitions = $repoCompet->findNom();
 
-
-        return $this->render('classement/index.html.twig', [
+        return $this->render('classement/classement.html.twig', [
             'controller_name' => 'ClassementController',
             'competiteurs' => $competiteurs,
             'competitions' => $competitions,
-            'competitionId' => $competitionId
         ]);
     }
+
+
 
 }
 

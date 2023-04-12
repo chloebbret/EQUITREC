@@ -41,19 +41,14 @@ class CompetitionRepository extends ServiceEntityRepository
     }
     public function findAllWithJuges()
     {
-//        $qb = $this->createQueryBuilder('c')
-//            ->select('c.nom_competition', 'c.adr_competition', 'c.cp_competition',
-//                'c.ville_competition', 'c.debut_competition', 'c.fin_competition', 'c.nb_epreuves',
-//                'j.nom_juge', 'j.prenom_juge')
-//            ->innerJoin('c.juges', 'j');
-
-                $entityManager = $this -> getEntityManager();
+        $entityManager = $this -> getEntityManager();
         $qb = $entityManager -> createQuery(
             'SELECT c.nom_competition, c.adr_competition, c.cp_competition,
-     c.ville_competition, c.debut_competition, c.fin_competition, c.nb_epreuves,
-     j.nom_juge, j.prenom_juge
-     FROM App\Entity\Competition c
-     INNER JOIN App\Entity\Juges j ORDER BY c.nom_competition asc'
+        c.ville_competition, c.debut_competition, c.fin_competition, c.nb_epreuves,
+        j.nom_juge, j.prenom_juge
+        FROM App\Entity\Competition c
+        INNER JOIN App\Entity\Juges j
+        ORDER BY c.nom_competition asc'
         );
 
         return $qb->getResult();
@@ -61,9 +56,19 @@ class CompetitionRepository extends ServiceEntityRepository
 
     public function findNom() {
         return $this->createQueryBuilder('c')
-            ->select('c.nom_competition')
+            ->select('c.id_competition, c.nom_competition')
             ->getQuery()
             ->getResult();
+    }
+
+    public function moyenneCompetition()
+    {
+        $qb = $this->createQueryBuilder('competition')
+            ->select('competition.nom_competition, AVG(competiteur.notes_competiteur) as average_notes')
+            ->innerJoin('competition.competiteurs', 'competiteur')
+            ->groupBy('competition.nom_competition')
+            ->orderBy('competition.id_competition', 'ASC');
+        return $qb->getQuery()->getResult();
     }
 
 

@@ -47,21 +47,23 @@ class CompetiteurRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function classementCompet($competitionId = null) {
-        $qb = $this->createQueryBuilder('ct');
+    public function classementCompet($competitionId = null)
+    {
+        $em = $this->getEntityManager();
+        $dql = "SELECT ct.id_competiteur, ct.nom_competiteur, ct.prenom_competiteur, ct.notes_competiteur, c.id_competition, c.nom_competition
+            FROM App\Entity\Competiteur ct
+            LEFT JOIN ct.competition c
+            ORDER BY c.nom_competition, ct.notes_competiteur DESC";
 
-        $qb->select('c.nom_competition', 'ct.nom_competiteur', 'ct.prenom_competiteur', 'ct.notes_competiteur')
-            ->join('App\Entity\Competition', 'c', 'WITH', 'c.id_competition = ct.id_competition')
-            ->orderBy('c.nom_competition', 'ASC')
-            ->addOrderBy('ct.notes_competiteur', 'DESC');
+        $query = $em->createQuery($dql);
 
         if ($competitionId !== null) {
-            $qb->andWhere('c.id = :id_competition')
-                ->setParameter('id_competition', $competitionId);
+            $dql .= " WHERE c.id_competition = :id_competition";
+            $query = $em->createQuery($dql);
+            $query->setParameter('id_competition', $competitionId);
         }
 
-
-        return $qb->getQuery()->getResult();
+        return $query->getResult();
     }
 
 //    /**

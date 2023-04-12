@@ -6,6 +6,7 @@ use App\Repository\CompetitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 
 
 #[ORM\Entity(repositoryClass: CompetitionRepository::class)]
@@ -13,7 +14,7 @@ class Competition
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: "integer", name: "id_competition")]
     private ?int $id_competition = null;
 
     #[ORM\Column(length: 20)]
@@ -23,7 +24,7 @@ class Competition
     private ?string $adr_competition = null;
 
     #[ORM\Column]
-    private ?int $cp_competition = null;
+    private ?string $cp_competition = null;
 
     #[ORM\Column(length: 50)]
     private ?string $ville_competition = null;
@@ -34,13 +35,15 @@ class Competition
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $fin_competition = null;
 
-    #[ORM\Column]
-    private ?int $nb_epreuves = null;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $nb_epreuves;
 
-    #[ORM\ManyToOne(inversedBy: 'competition')]
-    private ?Juges $juges = null;
+//    #[ORM\ManyToOne(targetEntity: Juges::class, inversedBy: "competition")]
+//    #[ORM\JoinColumn(name: "id_juge", referencedColumnName: "id_juge", nullable: false)]
+//    private $juges;
 
     #[ORM\OneToMany(mappedBy: 'competition', targetEntity: Competiteur::class)]
+    #[ORM\JoinColumn(name: 'id_competition', referencedColumnName: 'id_competition')]
     private Collection $competiteurs;
 
     public function __construct()
@@ -50,15 +53,12 @@ class Competition
 
     public function getId(): ?int
     {
-        return $this->id;
-    }
-
-    public function getIdCompet(): ?int
-    {
         return $this->id_competition;
     }
 
-    public function setIdCompet(int $id_competition): self
+
+
+    public function setId(int $id_competition): self
     {
         $this->id_competition = $id_competition;
 
@@ -89,12 +89,12 @@ class Competition
         return $this;
     }
 
-    public function getCpCompet(): ?int
+    public function getCpCompet(): ?string
     {
         return $this->cp_competition;
     }
 
-    public function setCpCompet(int $cp_competition): self
+    public function setCpCompet(string $cp_competition): self
     {
         $this->cp_competition = $cp_competition;
 
