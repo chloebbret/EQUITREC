@@ -5,34 +5,38 @@ namespace App\Entity;
 use App\Repository\CompetitionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: CompetitionRepository::class)]
 class Competition
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_compet = null;
+    private ?int $id_competition = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $nom_compet = null;
+    private ?string $nom_competition = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adr_compet = null;
+    private ?string $adr_competition = null;
 
     #[ORM\Column]
-    private ?int $cp_compet = null;
+    private ?int $cp_competition = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $ville_compet = null;
+    private ?string $ville_competition = null;
 
-    #[ORM\Column]
-    private ?int $debut_compet = null;
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $debut_competition = null;
 
-    #[ORM\Column]
-    private ?int $fin_compet = null;
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $fin_competition = null;
 
     #[ORM\Column]
     private ?int $nb_epreuves = null;
+
+    #[ORM\ManyToOne(inversedBy: 'competition')]
+    private ?Juges $juges = null;
 
     public function getId(): ?int
     {
@@ -41,84 +45,84 @@ class Competition
 
     public function getIdCompet(): ?int
     {
-        return $this->id_compet;
+        return $this->id_competition;
     }
 
-    public function setIdCompet(int $id_compet): self
+    public function setIdCompet(int $id_competition): self
     {
-        $this->id_compet = $id_compet;
+        $this->id_competition = $id_competition;
 
         return $this;
     }
 
     public function getNomCompet(): ?string
     {
-        return $this->nom_compet;
+        return $this->nom_competition;
     }
 
-    public function setNomCompet(string $nom_compet): self
+    public function setNomCompet(string $nom_competition): self
     {
-        $this->nom_compet = $nom_compet;
+        $this->nom_competition = $nom_competition;
 
         return $this;
     }
 
     public function getAdrCompet(): ?string
     {
-        return $this->adr_compet;
+        return $this->adr_competition;
     }
 
-    public function setAdrCompet(string $adr_compet): self
+    public function setAdrCompet(string $adr_competition): self
     {
-        $this->adr_compet = $adr_compet;
+        $this->adr_competition = $adr_competition;
 
         return $this;
     }
 
     public function getCpCompet(): ?int
     {
-        return $this->cp_compet;
+        return $this->cp_competition;
     }
 
-    public function setCpCompet(int $cp_compet): self
+    public function setCpCompet(int $cp_competition): self
     {
-        $this->cp_compet = $cp_compet;
+        $this->cp_competition = $cp_competition;
 
         return $this;
     }
 
     public function getVilleCompet(): ?string
     {
-        return $this->ville_compet;
+        return $this->ville_competition;
     }
 
-    public function setVilleCompet(string $ville_compet): self
+    public function setVilleCompet(string $ville_competition): self
     {
-        $this->ville_compet = $ville_compet;
+        $this->ville_competition = $ville_competition;
 
         return $this;
     }
 
-    public function getDebutCompet(): ?int
+    public function getDebutCompet(): ?\DateTime
     {
-        return $this->debut_compet;
+        return $this->debut_competition;
     }
 
-    public function setDebutCompet(int $debut_compet): self
+    public function setDebutCompet(\DateTime $debut_competition): self
     {
-        $this->debut_compet = $debut_compet;
+        $this->debut_competition = $debut_competition;
 
         return $this;
     }
 
-    public function getFinCompet(): ?int
+    public function getFinCompet(): ?\DateTime
     {
-        return $this->fin_compet;
+        return $this->fin_competition;
     }
 
-    public function setFinCompet(int $fin_compet): self
+    public function setFinCompet(\DateTime $fin_competition): self
     {
-        $this->fin_compet = $fin_compet;
+        $this->fin_competition = $fin_competition;
 
         return $this;
     }
@@ -131,6 +135,18 @@ class Competition
     public function setNbEpreuves(int $nb_epreuves): self
     {
         $this->nb_epreuves = $nb_epreuves;
+
+        return $this;
+    }
+
+    public function getJuges(): ?Juges
+    {
+        return $this->juges;
+    }
+
+    public function setJuges(?Juges $juges): self
+    {
+        $this->juges = $juges;
 
         return $this;
     }
