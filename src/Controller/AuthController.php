@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthController extends AbstractController
@@ -24,7 +25,7 @@ class AuthController extends AbstractController
     }
 
     #[Route('/login', name: 'login')]
-    public function Login(Request $request) : Response {
+    public function Login(Request $request, SessionInterface $session) : Response {
 
         if ($request->getMethod() !== 'POST') {
             return $this->render('default/error.html.twig', [
@@ -58,6 +59,10 @@ class AuthController extends AbstractController
             'login_user' => $login,
             'pass_user' => $password
         ]);
+
+        if ($user) {
+            $session->set('user', json_encode($user));
+        }
 
         return $this->render('auth/login.html.twig', [
             'success' => isset($user)
