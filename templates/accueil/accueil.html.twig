@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block title %} Accueil {% endblock %}
 {% block body %}
-
-
-
     <section class="section">
         <div class="content">
             <div class="columns is-centered">
-            <h3> Bienvenue sur le site EQUITREC </h3>
+                <div class="has-text-centered">
+                    <h3>Bienvenue sur le site EQUITREC</h3>
+
+                    {% set user = app.session.get('user') %}
+                    <span>Connecté en tant que <b>{{ user['login'] }}</b></span>
+                </div>
             </div>
         </div>
 
