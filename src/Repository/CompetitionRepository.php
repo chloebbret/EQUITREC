@@ -33,11 +33,22 @@ class CompetitionRepository extends ServiceEntityRepository
 
     public function remove(Competition $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()-> remove($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function supprCompet(array $competitionIds): void
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->delete()
+            ->where($qb->expr()->in('c.id_competition', ':competitionIds'))
+            ->setParameter('competitionIds', $competitionIds)
+            ->getQuery()
+            ->execute();
     }
     public function findAllWithJuges()
     {

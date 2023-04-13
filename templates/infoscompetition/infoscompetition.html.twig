@@ -76,24 +76,43 @@
             <button class="modal-close is-large" aria-label="close" onclick="closeForm()"></button>
         </div>
 
+        {#      si on a des compétitions, on affiche le tableau et le bouton supprimer#}
+        {% if competitions| length > 0 %}
 
-        <button class="button is-link is-danger ajoutCompet" onclick="openForm()"> Supprimer une compétition</button>
-        <div id="popupForm" class="modal">
+        <button class="button is-link is-danger" onclick="openDeleteForm()"> Supprimer une compétition</button>
+        <div id="deleteCompetitionForm" class="modal">
             <div class="modal-background" onclick="closeForm()"></div>
             <div class="modal-content">
-
-                <form class="box" method="post">
-
-
+                <form id="deleteCompetitionForm" class="box" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer les compétitions sélectionnées ?');">
+                    <h2 class="title">Supprimer des compétitions</h2>
+                    <div class="field">
+                        <label class="label">Sélectionnez les compétitions à supprimer :</label>
+                        <div class="control">
+                            {% for competition in competitions %}
+                                <label class="checkbox">
+                                    <input type="checkbox" name="competitionsSuppr[]" value="{{ competition.getId }}">
+                                    {{ competition.getNomCompet }}
+                                </label><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-danger" type="submit">Supprimer</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-light" type="button" onclick="closeForm()">Annuler</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
 
 
 
+
         <!-- Fin de la popup -->
-{#      si on a des données, on affiche le tableau#}
-        {% if competitions| length > 0 %}
+
         <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
                 <tr>
@@ -104,7 +123,6 @@
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
                     <th>Nombre d'épreuves</th>
-{#                    <th> Juges </th>#}
 
                 </tr>
             </thead>
@@ -195,7 +213,14 @@
 
             function closeForm() {
                 document.getElementById("popupForm").classList.remove("is-active");
+                document.getElementById("deleteCompetitionForm").classList.remove("is-active");
             }
+
+            function openDeleteForm() {
+                document.getElementById("deleteCompetitionForm").classList.add("is-active");
+            }
+
+
 
         </script>
         {% endblock %}
