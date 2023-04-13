@@ -20,7 +20,15 @@ class AuthController extends AbstractController
     }
 
     #[Route('/connexion', name: 'connexion')]
-    public function Connexion() : Response {
+    public function Connexion(SessionInterface $session) : Response {
+
+        if ($session->get('user') !== null) {
+            return $this->render('default/error.html.twig', [
+                'title' => 'Erreur',
+                'subtitle' => 'Vous êtes déjà connecté !'
+            ]);
+        }
+
         return $this->render('auth/login.html.twig');
     }
 
@@ -61,7 +69,19 @@ class AuthController extends AbstractController
         ]);
 
         if ($user) {
-            $session->set('user', json_encode($user));
+
+            $userData = [
+                'id' => $user->getIdUser(),
+                'login' => $user->getLoginUser(),
+                'first_name' => $user->getPrenomUser(),
+                'last_name' => $user->getNomUser(),
+                'mail' => $user->getMailUser(),
+                'pass' => $user->getPassUser(),
+                'role' => $user->getRoleUser(),
+                'tel' => $user->getTelUser(),
+            ];
+
+            $session->set('user', $userData);
         }
 
         return $this->render('auth/login.html.twig', [

@@ -2,10 +2,8 @@
 {#{% block title %} Accueil {% endblock %}#}
 {#{% block formulaire %}#}
 
-
 {#    <h2>coucou</h2>#}
 {#    <canvas id="myChart"></canvas>#}
-
 
 {#<script>#}
 {#        const DATA_COUNT = 7;#}
@@ -63,3 +61,12 @@
 {#{% block javascripts %}#}
 {#  #}
 {#{% endblock %}#}
+
+{% block body %}
+    {% if app.session.has('user') %}
+        {% set user = app.session.get('user') %}
+        <p>Bienvenue, {{ user['first_name'] }} {{ user['last_name'] }}!</p>
+    {% else %}
+        <p>Vous n'êtes pas connecté !</p>
+    {% endif %}
+{% endblock %}
