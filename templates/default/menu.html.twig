@@ -17,17 +17,20 @@
     <div id="menu" class="navbar-menu" style="font-size: 17px">
         <!-- Partie située à gauche -->
         <div class="navbar-start">
-            <a href="#" class="navbar-item">Accueil</a>
+            <a href="../accueil/accueil.html.twig" class="navbar-item">Accueil</a>
             <!-- Un élément dit dropdown -->
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link" href="#">Pages</a>
                 <!-- Les éléments présents dans le dropdown -->
                 <div class="navbar-dropdown is-boxed" style="font-size: 15px">
-                    <a href="#" class="navbar-item">Planning</a>
+                    <a href="{{ path('app_classement') }}" class="navbar-item">Classement</a>
+                    <a href="{{ path('app_infos_competition') }}" class="navbar-item">Infos compétition</a>
+{#                    <a href="{{ path('app_competiteur_list') }}" class="navbar-item">Liste Compétiteur et notes</a>#}
                     <a href="#" class="navbar-item">Notes</a>
+{#                    <a href="{{ path('app_planning') }}" class="navbar-item">Planning</a>#}
                 </div>
             </div>
-            <a href="#" class="navbar-item">Contact</a>
+            <a href="{{ path('app_contact') }}" class="navbar-item">Contact</a>
         </div>
 
         <!--- Partie utilisateur connecté --->
