@@ -85,13 +85,23 @@
         #backdrop {
             background: rgb(64,134,235);
             background: linear-gradient(101deg, rgba(64,134,235,0.5) 0%, rgba(0,66,112,0.7) 100%),
-            url("{{ asset('assets/img/bg.jpg') }}") center/100%;
+            url("{{ asset('assets/img/bg.jpg') }}") center;
         }
 
     </style>
 {% endblock %}
 
 {% block javascripts %}
+
+    {% if success is defined %}
+        {% if success == true %}
+            <script>
+                setTimeout(() => {
+                    window.location.href = "./accueil";
+                }, 3000);
+            </script>
+        {% endif %}
+    {% endif %}
 
     <script>
         const noAccount = document.getElementById('no_account');
