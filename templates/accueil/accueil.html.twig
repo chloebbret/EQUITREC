@@ -61,12 +61,3 @@
 {#{% block javascripts %}#}
 {#  #}
 {#{% endblock %}#}
-
-{% block body %}
-    {% if app.session.has('user') %}
-        {% set user = app.session.get('user') %}
-        <p>Bienvenue, {{ user['first_name'] }} {{ user['last_name'] }}!</p>
-    {% else %}
-        <p>Vous n'êtes pas connecté !</p>
-    {% endif %}
-{% endblock %}

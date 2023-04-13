@@ -30,20 +30,16 @@
             <a href="#" class="navbar-item">Contact</a>
         </div>
 
-{#        <!-- Partie située à droite -->#}
-{#        {% block isNotLogged %}#}
-{#            <div class="navbar-end">#}
-{#                <div class="navbar-item">#}
-{#                    <div class="buttons">#}
-{#                        <a class="button is-primary">#}
-{#                            <strong>Inscription</strong>#}
-{#                        </a>#}
-{#                        <a class="button is-light">#}
-{#                            Connexion#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        {% endblock %}#}
+        <!--- Partie utilisateur connecté --->
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{{ path('logout') }}">
+                        <strong>Se Déconnecter</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
