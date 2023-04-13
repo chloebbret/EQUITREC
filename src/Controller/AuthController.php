@@ -19,8 +19,8 @@ class AuthController extends AbstractController
         $this->userRepository = $userRepository;
     }
 
-    #[Route('/connexion', name: 'connexion')]
-    public function Connexion(SessionInterface $session) : Response {
+        #[Route('/connexion', name: 'app_login_page')]
+    public function LoginPage(SessionInterface $session) : Response {
 
         if ($session->get('user') !== null) {
             return $this->render('default/error.html.twig', [
@@ -32,7 +32,7 @@ class AuthController extends AbstractController
         return $this->render('auth/login.html.twig');
     }
 
-    #[Route('/login', name: 'login')]
+    #[Route('/login')]
     public function Login(Request $request, SessionInterface $session) : Response {
 
         if ($request->getMethod() !== 'POST') {
@@ -90,11 +90,11 @@ class AuthController extends AbstractController
 
     }
 
-    #[Route('/logout', name: 'logout')]
+    #[Route('/logout', name: 'app_logout')]
     public function Logout(Request $request, SessionInterface $session) : Response {
 
         $session->clear();
 
-        return $this->redirectToRoute('connexion');
+        return $this->redirectToRoute('app_login_page');
     }
 }
