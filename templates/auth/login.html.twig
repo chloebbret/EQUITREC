@@ -93,6 +93,16 @@
 
 {% block javascripts %}
 
+    {% if success is defined %}
+        {% if success == true %}
+            <script>
+                setTimeout(() => {
+                    window.location.href = "./accueil";
+                }, 3000);
+            </script>
+        {% endif %}
+    {% endif %}
+
     <script>
         const noAccount = document.getElementById('no_account');
         const createAccount = document.getElementById('create_account');

@@ -89,4 +89,12 @@ class AuthController extends AbstractController
         ]);
 
     }
+
+    #[Route('/logout', name: 'logout')]
+    public function Logout(Request $request, SessionInterface $session) : Response {
+
+        $session->clear();
+
+        return $this->redirectToRoute('connexion');
+    }
 }
