@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -34,6 +35,9 @@ class User
 
     #[ORM\Column]
     private ?int $role_user = null;
+
+    #[ORM\OneToMany(targetEntity: LogJuges::class, mappedBy: "logJuges")]
+    private Collection $log;
 
     public function getId(): ?int
     {
@@ -135,4 +139,14 @@ class User
 
         return $this;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getLog(): Collection
+    {
+        return $this->log;
+    }
+
+
 }

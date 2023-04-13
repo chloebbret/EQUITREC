@@ -6,6 +6,93 @@
 <section class="section">
     <div class="container">
         <h1 class="title">Tableau des compétitions</h1>
+        <button class="button is-link is-outlined ajoutCompet" onclick="ajoutCompet()"> <span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter une compétition</button>
+        <!-- Ajout de la popup -->
+        <div id="popupForm" class="modal">
+            <div class="modal-background" onclick="closeForm()"></div>
+            <div class="modal-content">
+                <!-- contenu du formulaire pour ajouter une compétition  -->
+                <form class="box" method="post">
+                    <h2 class="title">Ajouter une compétition</h2>
+                    <div class="field">
+                        <label class="label">Nom de la compétition</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nomCompet" placeholder="Nom de la compétition">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Adresse</label>
+                        <div class="control">
+                            <input class="input" type="text" name="adresse" placeholder="Adresse">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Code postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="codePostal" placeholder="Code postal">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Ville</label>
+                        <div class="control">
+                            <input class="input" type="text" name="ville" placeholder="Ville">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Début de la compétition </label>
+                        <div class="control">
+                            <input class="input" type="date" name="debutCompet">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Fin de la compétition</label>
+                        <div class="control">
+                            <input class="input" type="date" name="finCompet">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre d'épreuves</label>
+                        <div class="control">
+                            <input class="input" type="Number" name="nbEpreuves" placeholder="Nombre d'épreuves">
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-success" type="submit">Ajouter</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-danger is-light" type="button" onclick="closeForm()">Annuler</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="modal-close is-large" aria-label="close" onclick="closeForm()"></button>
+        </div>
+
+
+        <button class="button is-link is-danger ajoutCompet" onclick="openForm()"> Supprimer une compétition</button>
+        <div id="popupForm" class="modal">
+            <div class="modal-background" onclick="closeForm()"></div>
+            <div class="modal-content">
+
+                <form class="box" method="post">
+
+
+                </form>
+            </div>
+        </div>
+
+
+
+        <!-- Fin de la popup -->
+{#      si on a des données, on affiche le tableau#}
         {% if competitions| length > 0 %}
         <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
@@ -17,21 +104,21 @@
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
                     <th>Nombre d'épreuves</th>
-                    <th> Juges </th>
+{#                    <th> Juges </th>#}
 
                 </tr>
             </thead>
             <tbody>
                     {% for competition in competitions %}
                     <tr>
-                        <td>{{ competition.nom_competition }}</td>
-                        <td>{{ competition.adr_competition }}</td>
-                        <td>{{ competition.cp_competition }}</td>
-                        <td>{{ competition.ville_competition }}</td>
-                        <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
-                        <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
-                        <td>{{ competition.nb_epreuves }}</td>
-                        <td> {{ competition.nom_juge }} {{ competition.prenom_juge }}</td>
+                        <td>{{ competition.getNomCompet }}</td>
+                        <td>{{ competition.getadrCompet }}</td>
+                        <td>{{ competition.getCpCompet }}</td>
+                        <td>{{ competition.getvilleCompet }}</td>
+                        <td>{{ competition.getDebutCompet|date('d/m/Y') }}</td>
+                        <td>{{ competition.getFinCompet|date('d/m/Y') }}</td>
+                        <td>{{ competition.getNbEpreuves }}</td>
+{#                        <td> {{ competition.nom_juge }} {{ competition.prenom_juge }}</td>#}
 
                     </tr>
             {% endfor %}
@@ -39,7 +126,7 @@
 
         </table>
         {% else %}
-
+{#              sinon pas de tableau #}
             <div class="content">
                 <div class="column">
                     <div class="columns is-centered">
@@ -74,11 +161,43 @@
 
         table th {
             background-color: #485FC7;
-            color: white;
+            /*color: white;*/
         }
 
         tr:hover {
             background-color: #e0e0e0;
         }
+
+        button {
+            margin-bottom: 15px;
+            width: 220px;
+        }
+
+        .fa-plus {
+            margin-right: 17px;
+        }
+
+        .modal {
+            display: none;
+        }
+
+        .modal.is-active {
+            display: flex;
+        }
+
     </style>
+
+    {% block javascripts %}
+        <script>
+            function ajoutCompet() {
+                document.getElementById("popupForm").classList.add("is-active");
+            }
+
+            function closeForm() {
+                document.getElementById("popupForm").classList.remove("is-active");
+            }
+
+        </script>
+        {% endblock %}
+
 {% endblock %}
