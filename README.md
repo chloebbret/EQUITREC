@@ -16,6 +16,10 @@
 ```
 /public/infos/competition
 ```
+- Route classement
+```
+/public/classement
+```
 
 ## Comment utiliser les sessions
 
