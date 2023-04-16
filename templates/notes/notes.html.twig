@@ -131,12 +131,15 @@
                 <td>
                     <span class="icon has-text-danger suppr-competiteur" data-target="#deleteModal-{{ competiteur.id_competiteur }}"><i class="fas fa-trash-alt"></i></span>
                     <div id="deleteModal-{{ competiteur.id_competiteur }}" class="modal">
+                        <!-- fond de la fenêtre modal qui s'assombrit lorsque la fenêtre modal s'ouvre -->
                         <div class="modal-background"></div>
                         <div class="modal-card">
+                            <!--fenêtre modal qui contient un titre "Supprimer le compétiteur" et un bouton de fermeture de la fenêtre -->
                             <header class="modal-card-head">
                                 <p class="modal-card-title">Supprimer le compétiteur</p>
                                 <button class="delete" aria-label="close"></button>
                             </header>
+                            <!--formulaire qui envoie une demande de suppression via  méthode POST à la route compétiteur_delete avec l'ID du compétiteur à supprimer. -->
                             <section class="modal-card-body has-text-centered">
                                 <p>Êtes-vous sûr de vouloir supprimer ce compétiteur ?</p>
                                 <br>
@@ -195,7 +198,7 @@
             // Clic affichage formulaire
             addForm.style.display = 'block';
         });
-
+        // Fermer formulaire de modif lorsqu'on clique sur annuler
         function closeForm() {
             document.getElementById("popupForm").classList.remove("is-active");
         }

@@ -38,8 +38,9 @@ class CompetiteurController extends AbstractController
                 $competiteur->setNumLicence($numLicence);
                 $competiteur->setNotesCompetiteur($notesCompetiteur);
                 $competition->setNomCompet($nomCompet);
-
+                // persister/conserver l'objet competiteur en bdd
                 $em->persist($competiteur);
+                // enregistrer tous les changements
                 $em->flush();
 
                 // Rediriger vers la même page pour afficher la liste mise à jour des compétiteurs
@@ -54,6 +55,7 @@ class CompetiteurController extends AbstractController
     #[Route('/competiteur/{id}', name: 'competiteur_delete', methods: ['POST'])]
     public function delete(Request $request, Competiteur $competiteur, EntityManagerInterface $entityManager): Response
     {
+        // vérifie que le jeton CSRF est valide avant de supprimer l'objet et est utilisé pour empéche les attaques CSRF , si ça provient de l'utilisateur
         if ($this->isCsrfTokenValid('delete' . $competiteur->getId(), $request->request->get('_token'))) {
             $entityManager->remove($competiteur);
             $entityManager->flush();
@@ -62,7 +64,7 @@ class CompetiteurController extends AbstractController
         } else {
             $this->addFlash('error', 'Le jeton CSRF est invalide.');
         }
-
+        // redirige l'utilisateur a la page de base
         return $this->redirectToRoute('app_competiteur_list');
     }
 

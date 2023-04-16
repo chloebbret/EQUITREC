@@ -24,6 +24,7 @@
         <div class="columns is-multiline">
 
             {% for competition in competitions %}
+                <!-- donnée de chaque compétition qui sont passées en paramètres au modèle "card..twig -->
                 {% include 'default/card.html.twig' with {
                     'title': competition.nom_competition,
                     'start': competition.debut_competition|date('d/m/Y'),
