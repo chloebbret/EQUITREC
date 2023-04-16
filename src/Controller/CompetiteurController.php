@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Competiteur;
+use App\Entity\Competition;
 use App\Repository\CompetiteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,18 +17,19 @@ class CompetiteurController extends AbstractController
     {
         //récupère tt les compétiteurs à partir de la méthode FindAll.. de la l'instance du Repo
         $competiteurs = $competiteurRepository->findAllCompetiteurs();
-
         // Vérifie si la méthode HTTP utilisée est POST
         if ($request->isMethod('POST')) {
             // Vérifier si le formulaire d'ajout a été soumis
             if ($request->request->has('nomCompetiteur')) {
                 $competiteur = new Competiteur();
+                $competition = new Competition();
                 $idCompetiteur = $request->request->get('idCompetiteur');
                 $nomCompetiteur = $request->request->get('nomCompetiteur');
                 $prenomCompetiteur = $request->request->get('prenomCompetiteur');
                 $niveauCompet = $request->request->get('niveauCompet');
                 $numLicence = $request->request->get('numLicence');
                 $notesCompetiteur = $request->request->get('notesCompetiteur');
+                $nomCompet = $request->request->get('nomCompet');
 
                 $competiteur->setId($idCompetiteur);
                 $competiteur->setNomCompetiteur($nomCompetiteur);
@@ -35,6 +37,7 @@ class CompetiteurController extends AbstractController
                 $competiteur->setNiveauCompetiteur($niveauCompet);
                 $competiteur->setNumLicence($numLicence);
                 $competiteur->setNotesCompetiteur($notesCompetiteur);
+                $competition->setNomCompet($nomCompet);
 
                 $em->persist($competiteur);
                 $em->flush();
@@ -48,4 +51,19 @@ class CompetiteurController extends AbstractController
             'competiteurs' => $competiteurs,
         ]);
     }
+    #[Route('/competiteur/{id}', name: 'competiteur_delete', methods: ['POST'])]
+    public function delete(Request $request, Competiteur $competiteur, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $competiteur->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($competiteur);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'élément a été supprimé avec succès.');
+        } else {
+            $this->addFlash('error', 'Le jeton CSRF est invalide.');
+        }
+
+        return $this->redirectToRoute('app_competiteur_list');
+    }
+
 }

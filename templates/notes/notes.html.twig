@@ -21,8 +21,8 @@
         #add-competiteur-form {
             display: none;
             margin: 0 auto;
-            max-width: 800px;
-            padding: 200px;
+            max-width: 10000px;
+            padding: 100px;
             border: 1px solid black;
             background-color: rgba(0, 0, 0, 0.7);
             position: fixed;
@@ -112,6 +112,7 @@
             <th>Niveau</th>
             <th>Numéro de licence</th>
             <th>Notes</th>
+            <th>Compétition</th>
         </tr>
         </thead>
         <tbody>
@@ -123,11 +124,31 @@
                 <td>{{ competiteur.niveau_compet }}</td>
                 <td>{{ competiteur.num_licence }}</td>
                 <td>{{ competiteur.notes_competiteur }}</td>
+                <td>{{ competiteur.nom_competition }}</td>
                 <td>
                     <a href="#"class="fas fa-pencil-alt" onclick="return confirm('Êtes-vous sûr de vouloir modifier ce compétiteur ?')"></a>
                 </td>
                 <td>
-                    <a href="#" class="fas fa-trash" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce compétiteur ?')"></a>
+                    <span class="icon has-text-danger suppr-competiteur" data-target="#deleteModal-{{ competiteur.id_competiteur }}"><i class="fas fa-trash-alt"></i></span>
+                    <div id="deleteModal-{{ competiteur.id_competiteur }}" class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title">Supprimer le compétiteur</p>
+                                <button class="delete" aria-label="close"></button>
+                            </header>
+                            <section class="modal-card-body has-text-centered">
+                                <p>Êtes-vous sûr de vouloir supprimer ce compétiteur ?</p>
+                                <br>
+                                <form method="POST" action="{{ path('competiteur_delete', {'id': competiteur.id_competiteur }) }}">
+                                    <input type="hidden" name="_method">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ competiteur.id_competiteur) }}">
+                                    <button class="button is-danger">Supprimer</button>
+                                    <button class="button">Annuler</button>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
@@ -155,6 +176,10 @@
             <label for="notes-competiteur">Notes :</label>
             <input type="text" id="notes-competiteur" name="notesCompetiteur">
         </div>
+        <div>
+            <label for="nom-competition">Nom compétition :</label>
+            <input type="text" id="nom-competiton" name="nomCompetition">
+        </div>
         <button type="submit">Ajouter</button>
     </form>
 {% endblock %}
@@ -171,6 +196,19 @@
             addForm.style.display = 'block';
         });
 
+        function closeForm() {
+            document.getElementById("popupForm").classList.remove("is-active");
+        }
+        var deleteModals = document.querySelectorAll('.suppr-competiteur');
+        deleteModals.forEach(function(deleteModal) {
+            deleteModal.addEventListener('click', function() {
+                var target = document.querySelector(deleteModal.getAttribute('data-target'));
+                target.classList.add('is-active');
+                target.querySelector('.delete').addEventListener('click', function() {
+                    target.classList.remove('is-active');
+                });
+            });
+        });
     </script>
 
 {% endblock %}

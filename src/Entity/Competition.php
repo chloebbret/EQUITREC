@@ -56,7 +56,7 @@ class Competition
         return $this->nom_competition;
     }
 
-    public function setNomCompet(string $nom_competition): self
+    public function setNomCompet(?string $nom_competition): self
     {
         $this->nom_competition = $nom_competition;
 

@@ -39,13 +39,17 @@ class CompetiteurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
     public function findAllCompetiteurs()
     {
         $qb = $this->createQueryBuilder('c')
-            ->select('c.id_competiteur', 'c.nom_competiteur', 'c.prenom_competiteur', 'c.niveau_compet', 'c.num_licence', 'c.notes_competiteur')
+            ->select('c.id_competiteur', 'c.nom_competiteur', 'c.prenom_competiteur', 'c.niveau_compet', 'c.num_licence', 'c.notes_competiteur','comp.nom_competition')
+            ->leftJoin('c.competition', 'comp')
             ->orderBy('c.id_competiteur', 'ASC');
+
         return $qb->getQuery()->getResult();
     }
+
 
 
 
