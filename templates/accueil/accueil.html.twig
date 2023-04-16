@@ -122,73 +122,7 @@
                     });
             }
 
-            function nbConnectes() {
-                var data = [];
-                var maxDataPoints = 10; // Nombre maximum de points de données à afficher
-
-                document.addEventListener('DOMContentLoaded', function () {
-                    const chart = Highcharts.chart('container', {
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: 'Exemple de graphique en barres' // Titre du graphique
-                        },
-                        xAxis: {
-                            categories: ['A', 'B', 'C', 'D', 'E'], // Catégories de l'axe des x
-                            title: {
-                                text: 'Catégories' // Titre de l'axe des x
-                            }
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Valeurs' // Titre de l'axe des y
-                            }
-                        },
-                        series: [{
-                            name: 'Série 1', // Nom de la série de données
-                            data: [5, 10, 15, 20, 25], // Données du graphique
-                            color: 'lightgrey',
-                            borderRadius: 10
-                        }]
-
-                    });
-
-                    fetch('http://localhost/EQUITREC/public/api/connexionJournee')
-                        .then(response => response.json())
-                        .then(data => {
-                            const seriesData = data.map(item => {
-                                const date = new Date(item.date_connexion).getTime();
-                                return [date, parseInt(item.id_juge)];
-                            });
-
-                            // Triez les données par date si nécessaire
-                            seriesData.sort((a, b) => a[0] - b[0]);
-
-                            chart.series[0].setData(seriesData);
-                        });
-
-// Fonction pour ajouter des données au graphique
-                    function addDataPoint(x, y) {
-                        let maxDataPoints;
-                        var shift = data.length > maxDataPoints; // Vérifie si le nombre de points de données dépasse la limite
-                        chart.series[0].addPoint([x, y], true, shift); // Ajoute un nouveau point de données
-                    }
-
-// Exemple de mise à jour des données toutes les 2 secondes (à remplacer avec vos données en temps réel)
-//                     setInterval(function() {
-                    //     var x = new Date().getTime(); // Obtient l'heure actuelle en millisecondes
-                    //     var y = Math.floor(Math.random() * 10) + 1; // Génère un nombre aléatoire entre 1 et 10 pour les personnes connectées
-                    //     addDataPoint(x, y); // Ajoute le point de données au graphique
-                    // }, 2000); // Met à jour toutes les 2 secondes
-
-                });
-            }
             drawChart();
-            nbConnectes();
-
-
-
-        </script>
+</script>
         {% endblock %}
 {% endblock %}

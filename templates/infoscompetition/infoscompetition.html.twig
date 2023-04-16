@@ -98,7 +98,7 @@
                     </div>
                     <div class="field is-grouped">
                         <div class="control">
-                            <button class="button is-danger" type="submit">Supprimer</button>
+                            <button id="btnSupprimer" class="button is-danger" type="submit">Supprimer</button>
                         </div>
                         <div class="control">
                             <button class="button is-link is-light" type="button" onclick="closeForm()">Annuler</button>
@@ -108,12 +108,9 @@
             </div>
         </div>
 
-
-
-
         <!-- Fin de la popup -->
 
-        <table class="table is-striped is-hoverable is-fullwidth">
+        <table id="tab" class="table is-striped is-hoverable is-fullwidth">
             <thead>
                 <tr>
                     <th>Nom de la compétition</th>
@@ -216,12 +213,68 @@
                 document.getElementById("deleteCompetitionForm").classList.remove("is-active");
             }
 
+//             function openDeleteForm() {
+//                 document.getElementById("deleteCompetitionForm").classList.add("is-active");
+//                 // Ajouter du code pour récupérer la ligne du tableau à supprimer
+//                 // var table = document.getElementById('tab'); // Remplacez 'votreTableau' par l'identifiant de votre tableau
+//                 // var rowIndex = 1; // Indice de la ligne à supprimer (commence généralement à 1)
+//                 // var row = table.rows[rowIndex];
+//                 //
+//                 // // Ajouter un gestionnaire d'événement au bouton de confirmation de suppression
+//                 // var deleteBtn = document.getElementById("btnSupprimer");
+//                 // deleteBtn.addEventListener('click', function() {
+//                 //     // Code de suppression de la ligne du tableau
+//                 //     row.parentNode.removeChild(row);
+//                 // });
+//
+//                 var table = document.getElementById('tab'); // Remplacez 'votreTableau' par l'identifiant de votre tableau
+//
+// // Identifier la ligne à supprimer
+//                 var rowIndex = 1; // Indice de la ligne à supprimer (commence généralement à 1)
+//                 var row = table.rows[rowIndex];
+//
+// // Supprimer la ligne
+//                 table.deleteRow(rowIndex);
+//             }
             function openDeleteForm() {
                 document.getElementById("deleteCompetitionForm").classList.add("is-active");
+
+                // Récupérer les éléments cochés
+                var checkboxes = document.querySelectorAll('input[name="competitionsSuppr[]"]:checked');
+                var competitionsIds = Array.from(checkboxes).map(function(checkbox) {
+                    return checkbox.value;
+                });
+
+                // Envoyer les données au serveur pour suppression
+                if (competitionsIds.length > 0) {
+                    // Envoyer les données via une requête HTTP (par exemple, une requête AJAX)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/supprimer-competitions', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            // Succès : recharger la page pour voir les compétitions supprimées
+                            location.reload();
+                        } else {
+                            // Erreur : afficher un message d'erreur
+                            console.error('Erreur lors de la suppression des compétitions.');
+                        }
+                    };
+                    xhr.onerror = function() {
+                        // Erreur : afficher un message d'erreur
+                        console.error('Erreur lors de la suppression des compétitions.');
+                    };
+                    xhr.send(JSON.stringify({ competitionsIds: competitionsIds }));
+                } else {
+                    // Aucune compétition sélectionnée : afficher un message d'erreur
+                    console.error('Aucune compétition sélectionnée.');
+                }
             }
 
 
-
+            function supprimerLigne() {
+                var options = document.querySelectorAll('input[type="checkbox"]:checked');
+            }
         </script>
         {% endblock %}
 
