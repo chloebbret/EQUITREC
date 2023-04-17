@@ -19,19 +19,11 @@ class AccueilController extends AbstractController
         ]);
     }
     #[Route('/chart-data', name: 'app_chart_data')]
-    public function affichageMoyenneNotes(CompetitionRepository $repoCompetition) {
+    public function affichageMoyenneNotes(CompetitionRepository $repoCompetition): JsonResponse
+    {
         $data = $repoCompetition->moyenneCompetition();
-
         return new JsonResponse($data);
 
-    }
-
-    #[Route('/api/connexionJournee', name: 'connexionJournee', methods: ['GET'])]
-    public function getConnectedUsers(LogJugesRepository $logRepo): JsonResponse
-    {
-        $connectedUsers = $logRepo->connexionJournee();
-
-        return $this->json($connectedUsers);
     }
 }
 
