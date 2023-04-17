@@ -6,16 +6,23 @@
             border-collapse: collapse;
             margin: 0 auto;
             font-family: Arial, sans-serif;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            font-family: 'Open Sans', sans-serif;
         }
 
+        tr:nth-child(1) > th {
+            color: white;
+        }
         table th, table td {
-            border: 1px solid black;
             padding: 30px;
         }
 
         table th {
-            background-color: #00d1b2;
-            color: white;
+            background-color: #485FC7;
+            /*color: white;*/
+        }
+        tr:hover {
+            background-color: #e0e0e0;
         }
 /*page fond noir*/
         #add-competiteur-form {
@@ -64,7 +71,7 @@
         }
 /*bouton add compétiteur*/
         #add-competiteur-button {
-            background-color: black;
+            background-color: #485FC7;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -113,6 +120,8 @@
             <th>Numéro de licence</th>
             <th>Notes</th>
             <th>Compétition</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
         </tr>
         </thead>
         <tbody>
