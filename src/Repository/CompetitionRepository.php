@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Competiteur;
 use App\Entity\Competition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,13 +39,47 @@ class CompetitionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-        public function findAllWithoutId()
+    public function findAllWithJuges()
+    {
+        $entityManager = $this -> getEntityManager();
+        $qb = $entityManager -> createQuery(
+            'SELECT c.nom_competition, c.adr_competition, c.cp_competition,
+        c.ville_competition, c.debut_competition, c.fin_competition, c.nb_epreuves,
+        j.nom_juge, j.prenom_juge
+        FROM App\Entity\Competition c
+        INNER JOIN App\Entity\Juges j
+        ORDER BY c.nom_competition asc'
+        );
+
+        return $qb->getResult();
+    }
+
+    public function findNom() {
+        return $this->createQueryBuilder('c')
+            ->select('c.id_competition, c.nom_competition')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function moyenneCompetition()
+    {
+        $qb = $this->createQueryBuilder('competition')
+            ->select('competition.nom_competition, AVG(competiteur.notes_competiteur) as average_notes')
+            ->innerJoin('competition.competiteurs', 'competiteur')
+            ->groupBy('competition.nom_competition')
+            ->orderBy('competition.id_competition', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
+    public function findCompetitionDates()
     {
         $qb = $this->createQueryBuilder('c')
-            ->select('c.nom_competition, c.adr_competition, c.cp_competition, c.ville_competition, c.debut_competition, c.fin_competition, c.nb_epreuves');
+            ->select('c.debut_competition', 'c.fin_competition','c.nom_competition')
+            ->orderBy('c.nom_competition', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
+
+
 
 
 //    /**

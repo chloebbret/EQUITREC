@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Competiteur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Competition;
 
 /**
  * @extends ServiceEntityRepository<Competiteur>
@@ -38,6 +39,51 @@ class CompetiteurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findAllCompetiteurs()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.id_competiteur', 'c.nom_competiteur', 'c.prenom_competiteur', 'c.niveau_compet', 'c.num_licence', 'c.notes_competiteur','comp.nom_competition')
+            ->leftJoin('c.competition', 'comp')
+            ->orderBy('c.id_competiteur', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+
+
+
+
+
+    public function findCompetiteursRank() {
+        return $this->createQueryBuilder('c')
+            ->select('c.nom_competiteur, c.prenom_competiteur, c.notes_competiteur')
+            ->orderBy('c.notes_competiteur', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function classementCompet($competitionId = null)
+    {
+        $em = $this->getEntityManager();
+        $dql = "SELECT ct.id_competiteur, ct.nom_competiteur, ct.prenom_competiteur, ct.notes_competiteur, c.id_competition, c.nom_competition
+            FROM App\Entity\Competiteur ct
+            LEFT JOIN ct.competition c
+            ORDER BY c.nom_competition, ct.notes_competiteur DESC";
+
+        $query = $em->createQuery($dql);
+
+        if ($competitionId !== null) {
+            $dql .= " WHERE c.id_competition = :id_competition";
+            $query = $em->createQuery($dql);
+            $query->setParameter('id_competition', $competitionId);
+        }
+
+        return $query->getResult();
+    }
+
 
 //    /**
 //     * @return Competiteur[] Returns an array of Competiteur objects

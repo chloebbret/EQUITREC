@@ -26,10 +26,10 @@ class Competition
     private ?string $ville_competition = null;
 
     #[ORM\Column]
-    private ?int $debut_competition = null;
+    private ?\DateTimeInterface $debut_competition = null;
 
     #[ORM\Column]
-    private ?int $fin_competition = null;
+    private ?\DateTimeInterface $fin_competition = null;
 
     #[ORM\Column]
     private ?int $nb_epreuves = null;
@@ -56,7 +56,7 @@ class Competition
         return $this->nom_competition;
     }
 
-    public function setNomCompet(string $nom_competition): self
+    public function setNomCompet(?string $nom_competition): self
     {
         $this->nom_competition = $nom_competition;
 
@@ -99,24 +99,24 @@ class Competition
         return $this;
     }
 
-    public function getDebutCompet(): ?int
+    public function getDebutCompet(): ?\DateTime
     {
         return $this->debut_competition;
     }
 
-    public function setDebutCompet(int $debut_competition): self
+    public function setDebutCompet(\DateTime $debut_competition): self
     {
         $this->debut_competition = $debut_competition;
 
         return $this;
     }
 
-    public function getFinCompet(): ?int
+    public function getFinCompet(): ?\DateTime
     {
         return $this->fin_competition;
     }
 
-    public function setFinCompet(int $fin_competition): self
+    public function setFinCompet(\DateTime $fin_competition): self
     {
         $this->fin_competition = $fin_competition;
 
@@ -134,4 +134,16 @@ class Competition
 
         return $this;
     }
+    public function getJuges(): ?Juges
+    {
+        return $this->juges;
+    }
+
+    public function setJuges(?Juges $juges): self
+    {
+        $this->juges = $juges;
+
+        return $this;
+    }
+
 }

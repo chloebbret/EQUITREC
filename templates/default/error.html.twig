@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ pagetitle|default('Une erreur est survenue !') }}
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block body %}
+
+    <section class="hero is-light is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+
+                <img class="mb-3" src="{{ asset('assets/img/sad.png') }}" alt="pas content" width="128">
+
+                <h1 class="title">
+                    {{ title }}
+                </h1>
+                <h2 class="subtitle">
+                    {{ subtitle }}
+                </h2>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
