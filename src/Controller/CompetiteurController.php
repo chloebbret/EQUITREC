@@ -22,7 +22,6 @@ class CompetiteurController extends AbstractController
             // Vérifier si le formulaire d'ajout a été soumis
             if ($request->request->has('nomCompetiteur')) {
                 $competiteur = new Competiteur();
-                $competition = new Competition();
                 $idCompetiteur = $request->request->get('idCompetiteur');
                 $nomCompetiteur = $request->request->get('nomCompetiteur');
                 $prenomCompetiteur = $request->request->get('prenomCompetiteur');
@@ -37,7 +36,6 @@ class CompetiteurController extends AbstractController
                 $competiteur->setNiveauCompetiteur($niveauCompet);
                 $competiteur->setNumLicence($numLicence);
                 $competiteur->setNotesCompetiteur($notesCompetiteur);
-                $competition->setNomCompet($nomCompet);
                 // persister/conserver l'objet competiteur en bdd
                 $em->persist($competiteur);
                 // enregistrer tous les changements

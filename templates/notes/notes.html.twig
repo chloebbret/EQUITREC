@@ -9,7 +9,6 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             font-family: 'Open Sans', sans-serif;
         }
-
         tr:nth-child(1) > th {
             color: white;
         }
@@ -24,7 +23,7 @@
         tr:hover {
             background-color: #e0e0e0;
         }
-/*page fond noir*/
+        /*page fond noir*/
         #add-competiteur-form {
             display: none;
             margin: 0 auto;
@@ -69,14 +68,11 @@
             padding: 10px 20px;
             margin-top: 10px;
         }
-/*bouton add compétiteur*/
+        /*bouton add compétiteur*/
         #add-competiteur-button {
-            background-color: #485FC7;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            margin-bottom: 15px;
+            width: 240px;
+
         }
         .button-container {
             display: flex;
@@ -93,6 +89,14 @@
             cursor: pointer;
         }
 
+        .table thead td {
+            color: white;
+        }
+        i {
+            padding-right: 10px;
+            padding-top: 3px;
+        }
+
     </style>
 {% endblock %}
 
@@ -107,10 +111,10 @@
         </div>
     </section>
     <div class="button-container">
-        <button id="add-competiteur-button">Ajouter compétiteur</button>
+        <button class="button is-link is-outlined" id="add-competiteur-button"><span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter compétiteur</button>
     </div>
 
-    <table>
+    <table class="table is-striped is-hoverable">
         <thead>
         <tr>
             <th>ID</th>
@@ -224,6 +228,3 @@
     </script>
 
 {% endblock %}
-
-
-

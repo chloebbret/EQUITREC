@@ -1,13 +1,88 @@
 {% extends 'base.html.twig' %}
-{% block menu %}{% endblock %}
+
 {% block title %} Compétition {% endblock %}
 {% block body %}
 
 <section class="section">
     <div class="container">
         <h1 class="title">Tableau des compétitions</h1>
+
+        {#      si on a des compétitions, on affiche le tableau et le bouton supprimer#}
         {% if competitions| length > 0 %}
-        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <button class="button is-link is-outlined ajoutCompet" onclick="ajoutCompet()"> <span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter une compétition</button>
+        <!-- Ajout de la popup -->
+        <div id="popupForm" class="modal">
+            <div class="modal-background" onclick="closeForm()"></div>
+            <div class="modal-content">
+                <!-- contenu du formulaire pour ajouter une compétition  -->
+                <form class="box" method="post">
+                    <h2 class="title">Ajouter une compétition</h2>
+                    <div class="field">
+                        <label class="label">Nom de la compétition</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nomCompet" placeholder="Nom de la compétition">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Adresse</label>
+                        <div class="control">
+                            <input class="input" type="text" name="adresse" placeholder="Adresse">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Code postal</label>
+                        <div class="control">
+                            <input class="input" type="text" name="codePostal" placeholder="Code postal">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Ville</label>
+                        <div class="control">
+                            <input class="input" type="text" name="ville" placeholder="Ville">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Début de la compétition </label>
+                        <div class="control">
+                            <input class="input" type="date" name="debutCompet">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Fin de la compétition</label>
+                        <div class="control">
+                            <input class="input" type="date" name="finCompet">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Nombre d'épreuves</label>
+                        <div class="control">
+                            <input class="input" type="Number" name="nbEpreuves" placeholder="Nombre d'épreuves">
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-success" type="submit">Ajouter</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-danger is-light" type="button" onclick="closeForm()">Annuler</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="modal-close is-large" aria-label="close" onclick="closeForm()"></button>
+        </div>
+
+
+        <!-- Fin de la popup -->
+
+        <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
                 <tr>
                     <th>Nom de la compétition</th>
@@ -17,27 +92,50 @@
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
                     <th>Nombre d'épreuves</th>
+                    <th>Actions</th>
 
                 </tr>
             </thead>
             <tbody>
-
-
-                {% for competition in competitions %}
+                    {% for competition in competitions %}
                     <tr>
-                        <td>{{ competition.nom_competition }}</td>
-                        <td>{{ competition.adr_competition }}</td>
-                        <td>{{ competition.cp_competition }}</td>
-                        <td>{{ competition.ville_competition }}</td>
-                        <td>{{ competition.debut_competition|date('d/m/Y') }}</td>
-                        <td>{{ competition.fin_competition|date('d/m/Y') }}</td>
-                        <td>{{ competition.nb_epreuves }}</td>
+                        <td>{{ competition.getNomCompet }}</td>
+                        <td>{{ competition.getadrCompet }}</td>
+                        <td>{{ competition.getCpCompet }}</td>
+                        <td>{{ competition.getvilleCompet }}</td>
+                        <td>{{ competition.getDebutCompet|date('d/m/Y') }}</td>
+                        <td>{{ competition.getFinCompet|date('d/m/Y') }}</td>
+                        <td>{{ competition.getNbEpreuves }}</td>
+                        <td>
+                            <span class="icon has-text-danger suppr-competition" data-target="#deleteModal-{{ competition.getId }}"><i class="fas fa-trash-alt"></i></span>
+                            <div id="deleteModal-{{ competition.getId }}" class="modal">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">Supprimer la compétition</p>
+                                        <button class="delete" aria-label="close"></button>
+                                    </header>
+                                    <section class="modal-card-body has-text-centered">
+                                        <p>Êtes-vous sûr de vouloir supprimer cette compétition ?</p>
+                                        <br>
+                                        <form method="POST" action="{{ path('competition_delete', {'id': competition.getId}) }}">
+                                            <input type="hidden" name="_method">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ competition.getId) }}">
+                                            <button class="button is-danger">Supprimer</button>
+                                            <button class="button">Annuler</button>
+                                        </form>
+                                    </section>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
-                {% endfor %}
+
+            {% endfor %}
             </tbody>
+
         </table>
         {% else %}
-
+{#              sinon pas de tableau #}
             <div class="content">
                 <div class="column">
                     <div class="columns is-centered">
@@ -50,5 +148,85 @@
     </div>
     </div>
 </section>
+
+
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        tr:nth-child(1) > th {
+            color: white;
+        }
+
+        table th, table td {
+            border: 1px solid black;
+            padding: 30px;
+        }
+
+        table th {
+            background-color: #485FC7;
+            /*color: white;*/
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        button {
+            margin-bottom: 15px;
+            width: 240px;
+        }
+
+        .fa-solid {
+            margin-right: 26px;
+        }
+
+        .modal {
+            display: none;
+        }
+
+        .modal.is-active {
+            display: flex;
+        }
+
+        i {
+            padding-right: 4px;
+        }
+
+        i:hover {
+            cursor: pointer;
+        }
+
+    </style>
+
+    {% block javascripts %}
+        <script>
+
+            function ajoutCompet() {
+                document.getElementById("popupForm").classList.add("is-active");
+            }
+
+            function closeForm() {
+                document.getElementById("popupForm").classList.remove("is-active");
+            }
+
+            var deleteModals = document.querySelectorAll('.suppr-competition');
+            deleteModals.forEach(function(deleteModal) {
+                deleteModal.addEventListener('click', function() {
+                    var target = document.querySelector(deleteModal.getAttribute('data-target'));
+                    target.classList.add('is-active');
+                    target.querySelector('.delete').addEventListener('click', function() {
+                        target.classList.remove('is-active');
+                    });
+                });
+            });
+
+        </script>
+        {% endblock %}
 
 {% endblock %}

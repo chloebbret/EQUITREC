@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\JugeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JugeRepository::class)]
-class Juge
+class Juges
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,6 +32,18 @@ class Juge
 
     #[ORM\Column(length: 15)]
     private ?string $pass_juge = null;
+
+    #[ORM\OneToMany(targetEntity: Competition::class, mappedBy: "juges")]
+    private Collection $competition;
+
+
+
+
+    public function __construct()
+    {
+        $this->competition = new ArrayCollection();
+        $this->log = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,6 +130,37 @@ class Juge
     public function setPassJuge(string $pass_juge): self
     {
         $this->pass_juge = $pass_juge;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competition>
+     */
+    public function getCompetition(): Collection
+    {
+        return $this->competition;
+    }
+
+
+    public function addCompetition(Competition $competition): self
+    {
+        if (!$this->competition->contains($competition)) {
+            $this->competition->add($competition);
+            $competition->setJuges($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Competition $competition): self
+    {
+        if ($this->competition->removeElement($competition)) {
+            // set the owning side to null (unless already changed)
+            if ($competition->getJuges() === $this) {
+                $competition->setJuges(null);
+            }
+        }
 
         return $this;
     }
