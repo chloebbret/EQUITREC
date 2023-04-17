@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Planning des compétition
+{% endblock %}
+
+{% block body %}
+
+    <!--- Header --->
+    <section class="hero is-light is-half-mobile">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">
+                    Planning des compétitions
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="is-size-1">&nbsp;</div>
+
+    <!--- Body --->
+    <div class="container">
+        <div class="columns is-multiline">
+
+            {% for competition in competitions %}
+                <!-- donnée de chaque compétition qui sont passées en paramètres au modèle "card..twig -->
+                {% include 'default/card.html.twig' with {
+                    'title': competition.nom_competition,
+                    'start': competition.debut_competition|date('d/m/Y'),
+                    'end': competition.fin_competition|date('d/m/Y')
+                } %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{# default/card.html.twig #}
+
+<div class="column is-one-fifth">
+    <div class="card is-rounded has-shadow">
+        <header class="card-header">
+            <p class="card-header-title">{{ title }}</p>
+        </header>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <span class="icon is-small">
+                        <i class="fa-solid fa-play"></i>
+                    </span>
+                </div>
+                <div class="media-content">
+                    <p>{{ start }}</p>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left">
+                    <span class="icon is-small">
+                        <i class="fas fa-flag-checkered"></i>
+                    </span>
+                </div>
+                <div class="media-content">
+                    <p>{{ end }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
