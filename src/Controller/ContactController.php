@@ -55,10 +55,8 @@ class ContactController extends AbstractController
             }
         }
 
-        $token = $csrfTokenManager->getToken('contact_form');
         return $this->render('contact/contact.html.twig', [
             'controller_name' => 'ContactController',
-            'csrf_token' => $token,
         ]);
     }
 }
