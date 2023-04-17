@@ -76,25 +76,41 @@
             <button class="modal-close is-large" aria-label="close" onclick="closeForm()"></button>
         </div>
 
+        {#      si on a des compétitions, on affiche le tableau et le bouton supprimer#}
+        {% if competitions| length > 0 %}
 
-        <button class="button is-link is-danger ajoutCompet" onclick="openForm()"> Supprimer une compétition</button>
-        <div id="popupForm" class="modal">
+        <button class="button is-link is-danger" onclick="openDeleteForm()"> Supprimer une compétition</button>
+        <div id="deleteCompetitionForm" class="modal">
             <div class="modal-background" onclick="closeForm()"></div>
             <div class="modal-content">
-
-                <form class="box" method="post">
-
-
+                <form id="deleteCompetitionForm" class="box" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer les compétitions sélectionnées ?');">
+                    <h2 class="title">Supprimer des compétitions</h2>
+                    <div class="field">
+                        <label class="label">Sélectionnez les compétitions à supprimer :</label>
+                        <div class="control">
+                            {% for competition in competitions %}
+                                <label class="checkbox">
+                                    <input type="checkbox" name="competitionsSuppr[]" value="{{ competition.getId }}">
+                                    {{ competition.getNomCompet }}
+                                </label><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button id="btnSupprimer" class="button is-danger" type="submit">Supprimer</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-light" type="button" onclick="closeForm()">Annuler</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
 
-
-
         <!-- Fin de la popup -->
-{#      si on a des données, on affiche le tableau#}
-        {% if competitions| length > 0 %}
-        <table class="table is-striped is-hoverable is-fullwidth">
+
+        <table id="tab" class="table is-striped is-hoverable is-fullwidth">
             <thead>
                 <tr>
                     <th>Nom de la compétition</th>
@@ -104,7 +120,6 @@
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
                     <th>Nombre d'épreuves</th>
-{#                    <th> Juges </th>#}
 
                 </tr>
             </thead>
@@ -195,8 +210,71 @@
 
             function closeForm() {
                 document.getElementById("popupForm").classList.remove("is-active");
+                document.getElementById("deleteCompetitionForm").classList.remove("is-active");
             }
 
+//             function openDeleteForm() {
+//                 document.getElementById("deleteCompetitionForm").classList.add("is-active");
+//                 // Ajouter du code pour récupérer la ligne du tableau à supprimer
+//                 // var table = document.getElementById('tab'); // Remplacez 'votreTableau' par l'identifiant de votre tableau
+//                 // var rowIndex = 1; // Indice de la ligne à supprimer (commence généralement à 1)
+//                 // var row = table.rows[rowIndex];
+//                 //
+//                 // // Ajouter un gestionnaire d'événement au bouton de confirmation de suppression
+//                 // var deleteBtn = document.getElementById("btnSupprimer");
+//                 // deleteBtn.addEventListener('click', function() {
+//                 //     // Code de suppression de la ligne du tableau
+//                 //     row.parentNode.removeChild(row);
+//                 // });
+//
+//                 var table = document.getElementById('tab'); // Remplacez 'votreTableau' par l'identifiant de votre tableau
+//
+// // Identifier la ligne à supprimer
+//                 var rowIndex = 1; // Indice de la ligne à supprimer (commence généralement à 1)
+//                 var row = table.rows[rowIndex];
+//
+// // Supprimer la ligne
+//                 table.deleteRow(rowIndex);
+//             }
+            function openDeleteForm() {
+                document.getElementById("deleteCompetitionForm").classList.add("is-active");
+
+                // Récupérer les éléments cochés
+                var checkboxes = document.querySelectorAll('input[name="competitionsSuppr[]"]:checked');
+                var competitionsIds = Array.from(checkboxes).map(function(checkbox) {
+                    return checkbox.value;
+                });
+
+                // Envoyer les données au serveur pour suppression
+                if (competitionsIds.length > 0) {
+                    // Envoyer les données via une requête HTTP (par exemple, une requête AJAX)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/supprimer-competitions', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            // Succès : recharger la page pour voir les compétitions supprimées
+                            location.reload();
+                        } else {
+                            // Erreur : afficher un message d'erreur
+                            console.error('Erreur lors de la suppression des compétitions.');
+                        }
+                    };
+                    xhr.onerror = function() {
+                        // Erreur : afficher un message d'erreur
+                        console.error('Erreur lors de la suppression des compétitions.');
+                    };
+                    xhr.send(JSON.stringify({ competitionsIds: competitionsIds }));
+                } else {
+                    // Aucune compétition sélectionnée : afficher un message d'erreur
+                    console.error('Aucune compétition sélectionnée.');
+                }
+            }
+
+
+            function supprimerLigne() {
+                var options = document.querySelectorAll('input[type="checkbox"]:checked');
+            }
         </script>
         {% endblock %}
 
