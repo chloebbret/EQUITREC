@@ -70,6 +70,14 @@ class CompetitionRepository extends ServiceEntityRepository
             ->orderBy('competition.id_competition', 'ASC');
         return $qb->getQuery()->getResult();
     }
+    public function findCompetitionDates()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.debut_competition', 'c.fin_competition','c.nom_competition')
+            ->orderBy('c.nom_competition', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 
 
 

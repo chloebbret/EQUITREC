@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Competiteur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Competition;
 
 /**
  * @extends ServiceEntityRepository<Competiteur>
@@ -39,6 +40,23 @@ class CompetiteurRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllCompetiteurs()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.id_competiteur', 'c.nom_competiteur', 'c.prenom_competiteur', 'c.niveau_compet', 'c.num_licence', 'c.notes_competiteur','comp.nom_competition')
+            ->leftJoin('c.competition', 'comp')
+            ->orderBy('c.id_competiteur', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+
+
+
+
+
     public function findCompetiteursRank() {
         return $this->createQueryBuilder('c')
             ->select('c.nom_competiteur, c.prenom_competiteur, c.notes_competiteur')
@@ -65,6 +83,7 @@ class CompetiteurRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
 
 //    /**
 //     * @return Competiteur[] Returns an array of Competiteur objects

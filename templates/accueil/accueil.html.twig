@@ -113,46 +113,16 @@
                                 {
                                     name: 'Moyenne',
                                     data: chartData,
+                                    color: 'black',
+                                    borderRadius: 15,
+                                    pointWidth: 65
                                 },
                             ],
                         });
                     });
             }
 
-
-            function connexion() {
-                document.addEventListener('DOMContentLoaded', function () {
-                    const chart = Highcharts.chart('container', {
-                        chart: { type: 'line' },
-                        title: { text: 'Nombre de personnes connectés' },
-                        xAxis: { type: 'datetime', title: { text: 'Date' }},
-                        yAxis: { title: { text: 'Nombre de connectés' }},
-                        series: [{ name: 'Nombre de personnes connectés', data: [] }]
-                    });
-
-                    // Récupérer les données via l'API
-                    fetch('http://localhost/EQUITREC/public/api/connexionJournee')
-                        .then(response => response.json())
-                        .then(data => {
-                            const seriesData = data.map(item => {
-                                const date = new Date(item.date_connexion).getTime();
-                                return [date, parseInt(item.id_juge)];
-                            });
-
-                            // Triez les données par date si nécessaire
-                            seriesData.sort((a, b) => a[0] - b[0]);
-
-                            chart.series[0].setData(seriesData);
-                        });
-                });
-            }
-
             drawChart();
-            connexion();
-
-
-
-
-        </script>
+</script>
         {% endblock %}
 {% endblock %}

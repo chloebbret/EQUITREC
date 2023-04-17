@@ -20,11 +20,10 @@ class Competiteur
     private ?string $prenom_competiteur = null;
 
     #[ORM\Column]
-    private ?int $niveau_competiteur = null;
+    private ?int $niveau_compet = null;
 
     #[ORM\Column]
     private ?int $num_licence = null;
-
 
     #[ORM\Column]
     private ?float $notes_competiteur = null;
@@ -33,15 +32,12 @@ class Competiteur
     #[ORM\JoinColumn(name: "id_competition", referencedColumnName: "id_competition")]
     private ?Competition $competition = null;
 
-
-
     public function getId(): ?int
     {
         return $this->id_competiteur;
     }
 
-
-    public function setIdCompetiteur(int $id_competiteur): self
+    public function setId(?int $id_competiteur): self
     {
         $this->id_competiteur = $id_competiteur;
 
@@ -74,12 +70,12 @@ class Competiteur
 
     public function getNiveauCompetiteur(): ?int
     {
-        return $this->niveau_competiteur;
+        return $this->niveau_compet;
     }
 
-    public function setNiveauCompetiteur(int $niveau_competiteur): self
+    public function setNiveauCompetiteur(int $niveau_compet): self
     {
-        $this->niveau_competiteur = $niveau_competiteur;
+        $this->niveau_compet = $niveau_compet;
 
         return $this;
     }
@@ -101,11 +97,12 @@ class Competiteur
         return $this->notes_competiteur;
     }
 
-    public function setNotesCompetiteur(?float $notes_competiteur): void
+    public function setNotesCompetiteur(float $notes_competiteur): self
     {
         $this->notes_competiteur = $notes_competiteur;
-    }
 
+        return $this;
+    }
     public function getCompetition(): ?Competition
     {
         return $this->competition;
@@ -117,5 +114,4 @@ class Competiteur
 
         return $this;
     }
-
 }
