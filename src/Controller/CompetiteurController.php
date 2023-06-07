@@ -12,6 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 class CompetiteurController extends AbstractController
 {
+
+    private CompetiteurRepository $competiteurRepository;
+
+    public function __construct(CompetiteurRepository $competiteurRepository)
+    {
+        $this->competiteurRepository = $competiteurRepository;
+    }
+
     #[Route('/competiteur', name: 'app_competiteur_list')]
     public function list(CompetiteurRepository $competiteurRepository, Request $request, EntityManagerInterface $em): Response
     {
@@ -22,20 +30,45 @@ class CompetiteurController extends AbstractController
             // Vérifier si le formulaire d'ajout a été soumis
             if ($request->request->has('nomCompetiteur')) {
                 $competiteur = new Competiteur();
+                //$competition = new Competition();
                 $idCompetiteur = $request->request->get('idCompetiteur');
                 $nomCompetiteur = $request->request->get('nomCompetiteur');
                 $prenomCompetiteur = $request->request->get('prenomCompetiteur');
                 $niveauCompet = $request->request->get('niveauCompet');
                 $numLicence = $request->request->get('numLicence');
-                $notesCompetiteur = $request->request->get('notesCompetiteur');
-                $nomCompet = $request->request->get('nomCompet');
+                //$nomCompet = $request->request->get('nomCompet');
 
                 $competiteur->setId($idCompetiteur);
                 $competiteur->setNomCompetiteur($nomCompetiteur);
                 $competiteur->setPrenomCompetiteur($prenomCompetiteur);
                 $competiteur->setNiveauCompetiteur($niveauCompet);
                 $competiteur->setNumLicence($numLicence);
-                $competiteur->setNotesCompetiteur($notesCompetiteur);
+                //$competition->setNomCompet($nomCompet);
+
+                // Vérifier si le numéro de licence existe déjà en base de données
+                $comp = $competiteurRepository->findBy([
+                    'nom_competiteur' => $competiteur->getNomCompetiteur(),
+                    'prenom_competiteur' => $competiteur->getPrenomCompetiteur()
+                ]);
+
+                if ($comp) {
+                    return $this->render('default/error.html.twig', [
+                        'title' => 'Données éronées',
+                        'subtitle' => 'Les noms et prénoms entrées existent déjà !'
+                    ]);
+                }
+
+                $comp = $competiteurRepository->findBy([
+                    'num_licence' => $competiteur->getNumLicence()
+                ]);
+
+                if ($comp) {
+                    return $this->render('default/error.html.twig', [
+                        'title' => 'Données éronées',
+                        'subtitle' => 'Le numéro de license est déjà existant'
+                    ]);
+                }
+
                 // persister/conserver l'objet competiteur en bdd
                 $em->persist($competiteur);
                 // enregistrer tous les changements
