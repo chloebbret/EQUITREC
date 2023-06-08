@@ -7,7 +7,7 @@
     <div class="container">
         <h1 class="title">Tableau des compétitions</h1>
 
-        {#      si on a des compétitions, on affiche le tableau et le bouton supprimer#}
+        {#      si on a des compétitions, on affiche le tableau et le bouton supprimer  #}
         {% if competitions| length > 0 %}
         <button class="button is-link is-outlined ajoutCompet" onclick="ajoutCompet()"> <span class="icon"> <i class="fa-solid fa-plus"></i> </span>Ajouter une compétition</button>
         <!-- Ajout de la popup -->
@@ -32,20 +32,6 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Code postal</label>
-                        <div class="control">
-                            <input class="input" type="text" name="codePostal" placeholder="Code postal">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Ville</label>
-                        <div class="control">
-                            <input class="input" type="text" name="ville" placeholder="Ville">
-                        </div>
-                    </div>
-
-                    <div class="field">
                         <label class="label">Début de la compétition </label>
                         <div class="control">
                             <input class="input" type="date" name="debutCompet">
@@ -56,13 +42,6 @@
                         <label class="label">Fin de la compétition</label>
                         <div class="control">
                             <input class="input" type="date" name="finCompet">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Nombre d'épreuves</label>
-                        <div class="control">
-                            <input class="input" type="Number" name="nbEpreuves" placeholder="Nombre d'épreuves">
                         </div>
                     </div>
 
@@ -87,11 +66,8 @@
                 <tr>
                     <th>Nom de la compétition</th>
                     <th>Adresse</th>
-                    <th>Code postal</th>
-                    <th>Ville</th>
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
-                    <th>Nombre d'épreuves</th>
                     <th>Actions</th>
 
                 </tr>
@@ -101,11 +77,8 @@
                     <tr>
                         <td>{{ competition.getNomCompet }}</td>
                         <td>{{ competition.getadrCompet }}</td>
-                        <td>{{ competition.getCpCompet }}</td>
-                        <td>{{ competition.getvilleCompet }}</td>
                         <td>{{ competition.getDebutCompet|date('d/m/Y') }}</td>
                         <td>{{ competition.getFinCompet|date('d/m/Y') }}</td>
-                        <td>{{ competition.getNbEpreuves }}</td>
                         <td>
                             <span class="icon has-text-danger suppr-competition" data-target="#deleteModal-{{ competition.getId }}"><i class="fas fa-trash-alt"></i></span>
                             <div id="deleteModal-{{ competition.getId }}" class="modal">
