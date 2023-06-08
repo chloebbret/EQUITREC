@@ -19,9 +19,9 @@ class Competiteur
     #[ORM\Column(length: 50)]
     private ?string $prenom_competiteur = null;
 
-    #[ORM\Column]
-    private ?int $niveau_competiteur = null;
-
+    #[ORM\ManyToOne(inversedBy: 'competiteurs')]
+    #[ORM\JoinColumn(name: "niveau", referencedColumnName: "id_niveau")]
+    private ?Niveau $niveau = null;
 
     #[ORM\ManyToOne(inversedBy: 'competiteurs')]
     #[ORM\JoinColumn(name: "id_competition", referencedColumnName: "id_competition")]
@@ -66,19 +66,6 @@ class Competiteur
         return $this;
     }
 
-    public function getNiveauCompetiteur(): ?int
-    {
-        return $this->niveau_competiteur;
-    }
-
-    public function setNiveauCompetiteur(int $niveau_competiteur): self
-    {
-        $this->niveau_competiteur = $niveau_competiteur;
-
-        return $this;
-    }
-
-
     public function getCompetition(): ?Competition
     {
         return $this->competition;
@@ -87,6 +74,18 @@ class Competiteur
     public function setCompetition(?Competition $competition): self
     {
         $this->competition = $competition;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }
