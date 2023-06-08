@@ -20,14 +20,11 @@ class Competition
     #[ORM\Column(length: 20)]
     private ?string $nom_competition = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $adr_competition = null;
+    #[ORM\Column(type: 'float')]
+    private ?string $lat_competition = null;
 
-    #[ORM\Column]
-    private ?string $cp_competition = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $ville_competition = null;
+    #[ORM\Column(type: 'float')]
+    private ?string $lon_competition = null;
 
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $debut_competition = null;
@@ -56,8 +53,6 @@ class Competition
         return $this->id_competition;
     }
 
-
-
     public function setId(int $id_competition): self
     {
         $this->id_competition = $id_competition;
@@ -77,38 +72,26 @@ class Competition
         return $this;
     }
 
-    public function getAdrCompet(): ?string
+    public function getLatCompet(): ?float
     {
-        return $this->adr_competition;
+        return $this->lat_competition;
     }
 
-    public function setAdrCompet(string $adr_competition): self
+    public function setLatCompet(float $lat_competition): self
     {
-        $this->adr_competition = $adr_competition;
+        $this->lat_competition = $lat_competition;
 
         return $this;
     }
 
-    public function getCpCompet(): ?string
+    public function getLonCompet(): ?float
     {
-        return $this->cp_competition;
+        return $this->lon_competition;
     }
 
-    public function setCpCompet(string $cp_competition): self
+    public function setLonCompet(float $lon_competition): self
     {
-        $this->cp_competition = $cp_competition;
-
-        return $this;
-    }
-
-    public function getVilleCompet(): ?string
-    {
-        return $this->ville_competition;
-    }
-
-    public function setVilleCompet(string $ville_competition): self
-    {
-        $this->ville_competition = $ville_competition;
+        $this->lon_competition = $lon_competition;
 
         return $this;
     }
