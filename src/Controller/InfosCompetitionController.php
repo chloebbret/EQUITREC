@@ -23,21 +23,18 @@ class InfosCompetitionController extends AbstractController
             if ($request->request->has('nomCompet')) {
                 $competition = new Competition();
                 $nomCompet = $request->request->get('nomCompet');
-                $adresse = $request->request->get('adresse');
-                $codePostal = $request->request->get('codePostal');
-                $ville = $request->request->get('ville');
+                $lonCompet = $request->request->get('lonCompet');
+                $latCompet = $request->request->get('latCompet');
                 $debutCompet = $request->request->get('debutCompet');
                 $finCompet = $request->request->get('finCompet');
                 $nbEpreuves = $request->request->get('nbEpreuves');
 
                 $competition->setNomCompet($nomCompet);
-                $competition->setAdrCompet($adresse);
-                $competition->setCpCompet($codePostal);
-                $competition->setVilleCompet($ville);
                 $competition->setDebutCompet(new \DateTime($debutCompet));
                 $competition->setFinCompet(new \DateTime($finCompet));
                 $competition->setNbEpreuves($nbEpreuves);
-
+                $competition->setLatCompet($latCompet);
+                $competition->setLonCompet($lonCompet);
                 $em->persist($competition);
                 $em->flush();
 

@@ -54,8 +54,7 @@ class CompetitionRepository extends ServiceEntityRepository
     {
         $entityManager = $this -> getEntityManager();
         $qb = $entityManager -> createQuery(
-            'SELECT c.nom_competition, c.adr_competition, c.cp_competition,
-        c.ville_competition, c.debut_competition, c.fin_competition, c.nb_epreuves,
+            'SELECT c.nom_competition, c.debut_competition, c.fin_competition, c.nb_epreuves, c.lat_competition, c.lon_competition, j.id_juge,
         j.nom_juge, j.prenom_juge
         FROM App\Entity\Competition c
         INNER JOIN App\Entity\Juges j
