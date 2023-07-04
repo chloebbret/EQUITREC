@@ -47,15 +47,10 @@ class Juges
 
     public function getId(): ?int
     {
-        return $this->id;
-    }
-
-    public function getIdJuge(): ?int
-    {
         return $this->id_juge;
     }
 
-    public function setIdJuge(int $id_juge): self
+    public function setId(int $id_juge): self
     {
         $this->id_juge = $id_juge;
 
