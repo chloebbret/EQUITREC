@@ -33,29 +33,27 @@ class Juges
     #[ORM\Column(length: 15)]
     private ?string $pass_juge = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $id_competition;
+
+    #[ORM\ManyToOne(targetEntity: Competition::class)]
+    #[ORM\JoinColumn(name: "id_competition", referencedColumnName: "id_competition")]
+    private ?Competition $competition;
+
     #[ORM\OneToMany(targetEntity: Competition::class, mappedBy: "juges")]
-    private Collection $competition;
-
-
-
+    private Collection $competitions;
 
     public function __construct()
     {
-        $this->competition = new ArrayCollection();
-        $this->log = new ArrayCollection();
+        $this->competitions = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
-        return $this->id;
-    }
-
-    public function getIdJuge(): ?int
-    {
         return $this->id_juge;
     }
 
-    public function setIdJuge(int $id_juge): self
+    public function setId(int $id_juge): self
     {
         $this->id_juge = $id_juge;
 
@@ -134,19 +132,42 @@ class Juges
         return $this;
     }
 
-    /**
-     * @return Collection<int, Competition>
-     */
-    public function getCompetition(): Collection
+    public function getIdCompetition(): ?int
+    {
+        return $this->id_competition;
+    }
+
+    public function setIdCompetition(int $id_competition): self
+    {
+        $this->id_competition = $id_competition;
+
+        return $this;
+    }
+
+    public function getCompetition(): ?Competition
     {
         return $this->competition;
     }
 
+    public function setCompetition(?Competition $competition): self
+    {
+        $this->competition = $competition;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competition>
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
 
     public function addCompetition(Competition $competition): self
     {
-        if (!$this->competition->contains($competition)) {
-            $this->competition->add($competition);
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions->add($competition);
             $competition->setJuges($this);
         }
 
@@ -155,8 +176,7 @@ class Juges
 
     public function removeCompetition(Competition $competition): self
     {
-        if ($this->competition->removeElement($competition)) {
-            // set the owning side to null (unless already changed)
+        if ($this->competitions->removeElement($competition)) {
             if ($competition->getJuges() === $this) {
                 $competition->setJuges(null);
             }
