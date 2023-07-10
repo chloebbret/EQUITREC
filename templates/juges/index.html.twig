@@ -11,20 +11,16 @@
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>Téléphone</th>
-                    <th>Email</th>
                     <th>Code QR</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for juge in juges %}
+                {% for juge in jsonData.judges %}
                     <tr>
-                        <td>{{ juge.getNomJuge() }}</td>
-                        <td>{{ juge.getPrenomJuge() }}</td>
-                        <td>{{ juge.getTelJuge() }}</td>
-                        <td>{{ juge.getMailJuge() }}</td>
+                        <td>{{ juge.name }}</td>
+                        <td>{{ juge.surname }}</td>
                         <td>
-                            <button id="qrcode-button-{{ juge.getId() }}" data-target="modal-{{ juge.getId() }}">Afficher le code QR</button>
+                            <button id="qrcode-button-{{ juge.id }}" data-target="modal-{{ juge.id }}">Afficher le code QR</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -33,12 +29,12 @@
         </div>
     </section>
 
-    {% for juge in juges %}
-        <div class="modal" id="modal-{{ juge.getId() }}">
+    {% for juge in jsonData.judges %}
+        <div class="modal" id="modal-{{ juge.id }}">
             <div class="modal-background"></div>
             <div class="modal-content">
                 <div class="box">
-                    <canvas id="qrcode-{{ juge.getId() }}" width="300" height="300"></canvas>
+                    <canvas id="qrcode-{{ juge.id }}" width="300" height="300"></canvas>
                 </div>
             </div>
             <button class="modal-close is-large" aria-label="close"></button>
@@ -48,34 +44,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            {% for juge in juges %}
-            // Recup les donnees du juge
-            let qrCodeData{{ juge.getId() }} = '{{ juge.getNomJuge() }} {{ juge.getPrenomJuge() }}';
-            let qrCodeCanvas{{ juge.getId() }} = document.getElementById('qrcode-{{ juge.getId() }}');
-            let qrCodeButton{{ juge.getId() }} = document.getElementById('qrcode-button-{{ juge.getId() }}');
-            let modal{{ juge.getId() }} = document.getElementById('modal-{{ juge.getId() }}');
-
-            // Ajter un écouteur pour afficher le code qr
-            qrCodeButton{{ juge.getId() }}.addEventListener('click', function() {
-                modal{{ juge.getId() }}.classList.add('is-active');
+            {% for juge in jsonData.judges %}
+            // Recup les donnees du juge depuis le Json et les convertir en chaine json
+            var qrCodeData{{ juge.id }} = JSON.stringify({
+                "judges": {{ jsonData.judges | json_encode | raw }},
+                "riders": {{ jsonData.riders | json_encode | raw }},
+                "levels": {{ jsonData.levels | json_encode | raw }},
+                "obstacles": {{ jsonData.obstacles | json_encode | raw }},
+                "competitions": {{ jsonData.competitions | json_encode | raw }},
+                "competition_obstacles": {{ jsonData.competition_obstacles | json_encode | raw }}
             });
 
-            // Ajter un écouteur pour fermer la modal
-            modal{{ juge.getId() }}.addEventListener('click', function(event) {
+            // Recup les élements du DOM
+            let qrCodeCanvas{{ juge.id }} = document.getElementById('qrcode-{{ juge.id }}');
+            let qrCodeButton{{ juge.id }} = document.getElementById('qrcode-button-{{ juge.id }}');
+            let modal{{ juge.id }} = document.getElementById('modal-{{ juge.id }}');
+
+            // Ecouteur pour afficher le code qr
+            qrCodeButton{{ juge.id }}.addEventListener('click', function() {
+                modal{{ juge.id }}.classList.add('is-active');
+            });
+            // Ecouteur pour fermer modal
+            modal{{ juge.id }}.addEventListener('click', function(event) {
                 if (event.target.classList.contains('modal-background') || event.target.classList.contains('modal-close')) {
-                    modal{{ juge.getId() }}.classList.remove('is-active');
+                    modal{{ juge.id }}.classList.remove('is-active');
                 }
             });
-
-            // Je génère le code qr
-            generateQrCode(qrCodeData{{ juge.getId() }}, qrCodeCanvas{{ juge.getId() }});
+            // Genere le code qr
+            generateQrCode(qrCodeData{{ juge.id }}, qrCodeCanvas{{ juge.id }});
             {% endfor %}
 
-            // Fonction qui gènére le code qr
             function generateQrCode(data, canvas) {
                 let qr = new QRious({
                     element: canvas,
-                    size:300,
+                    size: 300,
                     value: data
                 });
             }
