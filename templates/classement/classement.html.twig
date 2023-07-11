@@ -20,7 +20,6 @@
                 <tr>
                     <th>Position</th>
                     <th>Compétiteur</th>
-                    <th>Score</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,7 +29,6 @@
                         <tr class="competitor-row" data-competition-id="{{ competiteur.id_competition }}">
                             <td>{{ position }}</td>
                             <td>{{ competiteur.nom_competiteur }} {{ competiteur.prenom_competiteur }}</td>
-                            <td>{{ competiteur.notes_competiteur }}</td>
                         </tr>
                         {% if key + 1 < competiteurs|length and competiteurs[key + 1].id_competition == competiteur.id_competition %}
                             {% set position = position + 1 %}

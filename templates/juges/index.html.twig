@@ -11,8 +11,6 @@
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>Téléphone</th>
-                    <th>Email</th>
                     <th>Code QR</th>
                 </tr>
                 </thead>
@@ -21,8 +19,6 @@
                     <tr>
                         <td>{{ juge.getNomJuge() }}</td>
                         <td>{{ juge.getPrenomJuge() }}</td>
-                        <td>{{ juge.getTelJuge() }}</td>
-                        <td>{{ juge.getMailJuge() }}</td>
                         <td>
                             <button id="qrcode-button-{{ juge.getId() }}" data-target="modal-{{ juge.getId() }}">Afficher le code QR</button>
                         </td>
@@ -38,7 +34,12 @@
             <div class="modal-background"></div>
             <div class="modal-content">
                 <div class="box">
-                    <canvas id="qrcode-{{ juge.getId() }}" width="300" height="300"></canvas>
+                    <!--condition 1er juge -->
+                    {% if loop.index == 1 %}
+                        <img src="{{ asset('assets/img/Juge1.png') }}" alt="Code QR" width="300" height="300">
+                    {% elseif loop.index == 2 %}
+                        <img src="{{ asset('assets/img/Juge2.png') }}" alt="Code QR" width="300" height="300">
+                    {% endif %}
                 </div>
             </div>
             <button class="modal-close is-large" aria-label="close"></button>
@@ -49,36 +50,20 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             {% for juge in juges %}
-            // Recup les donnees du juge
-            let qrCodeData{{ juge.getId() }} = '{{ juge.getNomJuge() }} {{ juge.getPrenomJuge() }}';
-            let qrCodeCanvas{{ juge.getId() }} = document.getElementById('qrcode-{{ juge.getId() }}');
+            <!-- je sélectionne le bouton du qr code pour le juge  -->
             let qrCodeButton{{ juge.getId() }} = document.getElementById('qrcode-button-{{ juge.getId() }}');
             let modal{{ juge.getId() }} = document.getElementById('modal-{{ juge.getId() }}');
-
-            // Ajter un écouteur pour afficher le code qr
+            <!-- j'ajte un écouteur pour le clic sur le bouton -->
             qrCodeButton{{ juge.getId() }}.addEventListener('click', function() {
                 modal{{ juge.getId() }}.classList.add('is-active');
             });
-
-            // Ajter un écouteur pour fermer la modal
+            <!-- j'ajte un écouteur pour le clic sur le modal -->
             modal{{ juge.getId() }}.addEventListener('click', function(event) {
                 if (event.target.classList.contains('modal-background') || event.target.classList.contains('modal-close')) {
                     modal{{ juge.getId() }}.classList.remove('is-active');
                 }
             });
-
-            // Je génère le code qr
-            generateQrCode(qrCodeData{{ juge.getId() }}, qrCodeCanvas{{ juge.getId() }});
             {% endfor %}
-
-            // Fonction qui gènére le code qr
-            function generateQrCode(data, canvas) {
-                let qr = new QRious({
-                    element: canvas,
-                    size:300,
-                    value: data
-                });
-            }
         });
     </script>
 {% endblock %}
