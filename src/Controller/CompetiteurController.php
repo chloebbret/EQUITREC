@@ -79,7 +79,7 @@ class CompetiteurController extends AbstractController
             }
         }
 
-        return $this->render('notes/notes.html.twig', [
+        return $this->render('accueil/accueil.html.twig', [
             'competiteurs' => $competiteurs,
         ]);
     }

@@ -86,9 +86,6 @@
             <thead>
                 <tr>
                     <th>Nom de la compétition</th>
-                    <th>Adresse</th>
-                    <th>Code postal</th>
-                    <th>Ville</th>
                     <th>Début de la compétition</th>
                     <th>Fin de la compétition</th>
                     <th>Nombre d'épreuves</th>
@@ -100,9 +97,6 @@
                     {% for competition in competitions %}
                     <tr>
                         <td>{{ competition.getNomCompet }}</td>
-                        <td>{{ competition.getadrCompet }}</td>
-                        <td>{{ competition.getCpCompet }}</td>
-                        <td>{{ competition.getvilleCompet }}</td>
                         <td>{{ competition.getDebutCompet|date('d/m/Y') }}</td>
                         <td>{{ competition.getFinCompet|date('d/m/Y') }}</td>
                         <td>{{ competition.getNbEpreuves }}</td>
